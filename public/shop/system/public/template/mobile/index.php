@@ -152,7 +152,7 @@
 <div id="footer">
 
  
-   <p >&copy; Copyright 2016 福州百家威信信息技术有限责任公司 Rights Reserved</p>
+   <p >&copy; Copyright 2016 大连城里网 Rights Reserved</p>
 </div>
 </body>
 </html>
