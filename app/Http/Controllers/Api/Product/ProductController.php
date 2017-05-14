@@ -19,47 +19,47 @@ class ProductController extends Controller
     {
 
         $recommend =  [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/801/727/3243727108_1756970588.220x220.jpg',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
             'product_name'=>'数码相机',
             'product_id'=>1,
         ];
         $bool = [ [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/452/371/2968173254_571424700.220x220.jpg',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
             'product_name'=>'数码戒指',
             'product_price'=>'156.9',
             'product_id'=>2,
         ],
             [
-                'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/452/371/2968173254_571424700.220x220.jpg',
+                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
                 'product_name'=>'数码戒指',
                 'product_price'=>'100',
                 'product_id'=>3,
             ]];
         $theme =   [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/982/866/2966668289_571424700.220x220.jpg',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
             'product_name'=>'主题旅游',
             'product_id'=>4,
         ];
         $sale = [ [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/712/872/3598278217_29062745.220x220.jpg_.webp',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
             'product_name'=>'数码戒指2',
             'product_price'=>'200',
             'product_id'=>5,
         ],
             [
-                'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/552/465/3709564255_88036974.220x220.jpg',
+                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
                 'product_name'=>'数码戒指3',
                 'product_price'=>'345',
                 'product_id'=>6,
             ]];
         $products = [ [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/712/872/3598278217_29062745.220x220.jpg_.webp',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
             'product_name'=>'数码戒指4',
             'product_price'=>'145',
             'product_id'=>7,
         ],
             [
-                'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/552/465/3709564255_88036974.220x220.jpg',
+                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
                 'product_name'=>'数码戒指5',
                 'product_price'=>'245',
                 'product_id'=>8,
@@ -85,19 +85,20 @@ class ProductController extends Controller
     public function detail($id)
     {
         $thumbnail  =  [ [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/712/872/3598278217_29062745.220x220.jpg_.webp',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
             'product_name'=>'数码戒指4',
             'product_id'=>1,
         ],
             [
-                'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/552/465/3709564255_88036974.220x220.jpg',
+                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
                 'product_name'=>'数码戒指5',
                 'product_id'=>2,
             ]];
         $product_info =  [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/801/727/3243727108_1756970588.220x220.jpg',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
             'product_name'=>'数码相机',
             'product_price'=>'645',
+            'unit'=>'件',
             'desc'=>'<div class="widget-custom-container">
 
 
@@ -123,13 +124,13 @@ class ProductController extends Controller
         ];
 
         $products = [ [
-            'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/712/872/3598278217_29062745.220x220.jpg_.webp',
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
             'product_name'=>'数码戒指4',
             'product_price'=>'145',
             'product_id'=>1,
         ],
             [
-                'product_img'=>'https://cbu01.alicdn.com/img/ibank/2016/552/465/3709564255_88036974.220x220.jpg',
+                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
                 'product_name'=>'数码戒指5',
                 'product_price'=>'245',
                 'product_id'=>22,
