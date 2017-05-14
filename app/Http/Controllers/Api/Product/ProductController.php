@@ -85,20 +85,16 @@ class ProductController extends Controller
     public function detail($id)
     {
         $thumbnail  =  [ [
-            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
-            'product_name'=>'数码戒指4',
-            'product_id'=>1,
+            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg'
         ],
             [
-                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
-                'product_name'=>'数码戒指5',
-                'product_id'=>2,
+            'product_img'=>'http://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg'
             ]];
         $product_info =  [
             'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
             'product_name'=>'数码相机',
             'product_price'=>'645',
-            'unit'=>'件',
+            'unit'=>'包',
             'desc'=>'<div class="widget-custom-container">
 
 
