@@ -65,7 +65,7 @@ class ProductController extends Controller
                 'product_id'=>2,
             ]];
         $list = [
-            'recomend'=>$recommend, //推荐
+            'recommend'=>$recommend, //推荐
             'boon'=>    $bool, //最实惠
             'theme'=>  $theme,// 主题旅游
             'sale'=>  $sale,//限时抢购
