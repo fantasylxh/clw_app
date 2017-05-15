@@ -65,6 +65,8 @@ class ProductController extends Controller
             'product_price'=>$model->marketprice,
             'unit'=>$model->unit,
             'desc'=>$model->content,
+            'stock'=>$model->total,
+            'express_fee'=>$model->dispatchprice,
             'thumbnail'=>$thumbnail
         ];
         /* 城里推荐 */
