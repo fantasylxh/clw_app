@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-//use App\Models\Product;
+use App\Models\Article;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -17,53 +18,17 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        /* 最实惠 */
+        $recommend= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img"))->where(['ishot'=>1,'isrecommand'=>1])->first()->toArray();
+        /* 最实惠 */
+        $bool= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price,unit"))->where(['isdiscount'=>1])->get()->toArray();
+        /* 主题旅游 */
+        $theme = Article::orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>6])->first()->toArray();
+        /* 限时特卖 */
+        $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price,unit"))->where(['istime'=>1])->get()->toArray();
+        /* 实惠商品 */
+        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,unit"))->where(['isnew'=>1])->first()->toArray();
 
-        $recommend =  [
-            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
-            'product_name'=>'数码相机',
-            'product_id'=>1,
-        ];
-        $bool = [ [
-            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
-            'product_name'=>'数码戒指',
-            'product_price'=>'156.9',
-            'product_id'=>2,
-        ],
-            [
-                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
-                'product_name'=>'数码戒指',
-                'product_price'=>'100',
-                'product_id'=>3,
-            ]];
-        $theme =   [
-            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
-            'product_name'=>'主题旅游',
-            'product_id'=>4,
-        ];
-        $sale = [ [
-            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/ydFZQIJKFup3Uu5.jpg',
-            'product_name'=>'数码戒指2',
-            'product_price'=>'200',
-            'product_id'=>5,
-        ],
-            [
-                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
-                'product_name'=>'数码戒指3',
-                'product_price'=>'345',
-                'product_id'=>6,
-            ]];
-        $products = [ [
-            'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
-            'product_name'=>'数码戒指4',
-            'product_price'=>'145',
-            'product_id'=>7,
-        ],
-            [
-                'product_img'=>'https://users.chengliwang.dev/shop/attachment/jpg/2017/05/O0rzcLC0sEL8e07.jpg',
-                'product_name'=>'数码戒指5',
-                'product_price'=>'245',
-                'product_id'=>8,
-            ]];
         $list = [
             'recommend'=>$recommend, //推荐
             'boon'=>    $bool, //最实惠
