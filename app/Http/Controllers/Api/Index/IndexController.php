@@ -24,19 +24,19 @@ class IndexController extends Controller
         $time_products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price"))->where(['istime'=>1])->get()->toArray();
 
         /* 城里新闻 */
-        $news_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->get()->toArray();
+        $news_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->get()->toArray();
 
         /* 活动报名 */
-        $active_articles = Article::limit(7)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>4])->get()->toArray();
+        $active_articles = Article::limit(7)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>4])->get()->toArray();
 
         /* 社区生活 */
-        $life_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>5])->get()->toArray();
+        $life_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>5])->get()->toArray();
 
         /* 城里推荐 */
         $recommend_products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,marketprice as product_price"))->where(['isindex'=>1,'isrecommand'=>1])->get()->toArray();
 
         /* 旅游专题 */
-        $tour_articles = Article::limit(2)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>6])->get()->toArray();
+        $tour_articles = Article::limit(2)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>6])->get()->toArray();
 
         $list = [
             'banner_articles'=>$banner_articles, //轮播图
@@ -47,7 +47,7 @@ class IndexController extends Controller
             'recommend_products'=>$recommend_products, //城里推荐
             'tour_articles'=>$tour_articles, //旅游专题
         ];
-        $result = ['code'=>200,'status'=>1,'message'=>'最实惠列表','data'=>$list];
+        $result = ['code'=>200,'status'=>1,'message'=>'app首页','data'=>$list];
         return response()->json($result);
 
     }
