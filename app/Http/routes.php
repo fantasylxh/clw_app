@@ -1,10 +1,9 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
+    Route::group(['namespace' => 'Index'], function () {
+        Route::get('/', 'IndexController@index');
+    });
 
     Route::group(['prefix' => 'register', 'namespace' => 'Register'], function () {
         Route::get('/create', 'RegisterController@create');
