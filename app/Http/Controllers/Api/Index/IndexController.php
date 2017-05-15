@@ -21,7 +21,7 @@ class IndexController extends Controller
         $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>3])->get()->toArray();
 
         /* 限时特卖 */
-        $time_products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as thumb as product_img,marketprice as product_price"))->where(['istime'=>1])->get()->toArray();
+        $time_products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price"))->where(['istime'=>1])->get()->toArray();
 
         /* 城里新闻 */
         $news_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->get()->toArray();
@@ -33,7 +33,7 @@ class IndexController extends Controller
         $life_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>5])->get()->toArray();
 
         /* 城里推荐 */
-        $recommend_products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as thumb as product_img,marketprice as product_price"))->where(['isindex'=>1,'isrecommand'=>1])->get()->toArray();
+        $recommend_products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,marketprice as product_price"))->where(['isindex'=>1,'isrecommand'=>1])->get()->toArray();
 
         /* 旅游专题 */
         $tour_articles = Article::limit(2)->orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>6])->get()->toArray();
