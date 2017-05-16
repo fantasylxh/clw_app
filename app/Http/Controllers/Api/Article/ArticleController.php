@@ -24,7 +24,7 @@ class ArticleController extends Controller
 
         $list = [
             'banner_articles'=>$banner_articles,
-            'articles'=> $articles,
+            'news_articles'=> $articles,
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'app首页','data'=>$list];
         return response()->json($result);
