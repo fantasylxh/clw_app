@@ -5,7 +5,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/', 'IndexController@index');
     });
     Route::group(['prefix' => 'article', 'namespace' => 'Article'], function () {
-        Route::get('/{id}', 'ArticleController@index');
+        Route::get('/', 'ArticleController@index');
         Route::get('/detail/{id}', 'ProductController@detail');# 产品宣传页
 
     });
