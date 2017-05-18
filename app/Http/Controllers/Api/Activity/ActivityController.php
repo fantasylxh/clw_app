@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Activity;
+use App\Models\ActivityRecord;
 class ActivityController extends Controller
 {
     /**
@@ -81,69 +82,25 @@ class ActivityController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            $result =$this->checkAgent($data);
-            if (\Auth::check())
-            {
-                if(\Auth::user()->is_agent)
-                    return response()->json(['code' => 200, 'status' => 0, 'message' => '您已经登记过了!']);
-            }
-            $data['user_id'] = \Auth::id();
+
+            if(!isset($data['activityid']) || !isset($data['openid']))
+                return response()->json(['code' => 200, 'status' => 0, 'message' => '活动 activityid和openid 不能为空!']);
+
+            if(!isset($data['username'] )|| !isset($data['mobile']))
+                return response()->json(['code' => 200, 'status' => 0, 'message' => '姓名 username和手机号mobile 不能为空!']);
+
+            $where = ['openid'=>$data['openid'],'activityid'=>$data['activityid']];
             try {
-                if($result['status'] ==1)
-                {
-                    /* 登记科室 */
-                    $depart_ids_arr = json_decode($request->depart_ids,true);
-                    if(is_array($depart_ids_arr))
-                    {
-                        foreach($depart_ids_arr as $val)
-                            OrderDepart::firstOrCreate(['depart_id' => $val['depart_id'],'user_id'=>\Auth::id()]);
-                    }
-                    /* 登记服务 */
-                    $service_type_ids_arr = json_decode($request->service_type_ids,true);
-                    if(is_array($service_type_ids_arr))
-                    {
-                        foreach($service_type_ids_arr as $val)
-                            OrderService::firstOrCreate(['service_type_id' => $val['service_type_id'],'user_id'=>\Auth::id()]);
-                    }
-                    /* 登记医院 */
-                    $hospitals_arr = json_decode($request->hospitals,true);
-                    if(is_array($hospitals_arr))
-                    {
-                        foreach($hospitals_arr as $val)
-                        {
-                            $model = Hospital::firstOrCreate(['province'=>$val['province'],'city'=>$val['city'],'hospital'=>$val['hospital']]);
-                            $hospital_id = $model->id;
-                            OrderHospital::firstOrCreate(['hospital_id' => $hospital_id,'user_id'=>\Auth::id()]);
-                        }
-                    }
-                    $updata = [
-                        'is_agent' => 1,
-                        'real_name'=>$request->real_name,
-                        'sex'=>$request->sex,
-                        'email'=>$request->email,
-                        'province'=>$request->province,
-                        'city'=>$request->city,
-                        'area'=>$request->area,
-                    ];
-                    User::where('id', \Auth::id())->update($updata);
-                    return response()->json(['code'=>200, 'status' => 1,'message' => '登记成功' ]);
-                }
-                else
-                    return response()->json(['code'=>200, 'status' => 0,'message' => $result['message'] ]);
+                $update_data = ['username'=>$data['username'],'mobile'=>$data['mobile'],'street'=>$data['street'],'region'=>$data['region'],'headimgurl'=>'https://users.chengliwang.com/shop/attachment/jpg/1.jpg'];
+                ActivityRecord::updateOrCreate($where,$update_data);
+                return response()->json(['code'=>200, 'status' => 1,'message' => '登记成功' ]);
 
             } catch (\Exception $e) {
-                return response()->json(['code' => 200, 'status' => 0, 'message' => '服务器异常!']);
+                return response()->json(['code' => 200, 'status' => 0, 'message' => $e->getMessage()]);
             }
         }
-//        $model = new ServiceType();
-//        $s_data = $model->lists(); // 服务类型
-//        $d_data = Department::all();
-
-        return view('web.agent.agent-sign')->with([
-            // 's_data' => $s_data,
-            // 'd_data' => $d_data,
-        ]);
-
+        else
+            return response()->json(['code' => 200, 'status' => 0, 'message' => '无效的请求方式!']);
     }
 
 }

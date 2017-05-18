@@ -11,7 +11,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActivityRecord extends Model
 {
-
+    public $timestamps = false;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'activityid',
+        'uniacid',
+        'openid',
+        'nickname',
+        'username',
+        'mobile',
+        'birthday',
+        'headimgurl',
+        'pic',
+        'msg',
+        'jointime',
+        'status',
+        'street',
+        'region',
+    ];
     /**
      * 获取报名对应的活动
      */
