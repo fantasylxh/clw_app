@@ -66,7 +66,7 @@ class ActivityController extends Controller
         $records = ['count'=>$count,'records'=>$results->toArray()];
         $list = [
             'activity_info'=>$activity_info,
-            'records'=>$records
+            'users'=>$records
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'活动介绍','data'=>$list];
         return response()->json($result);
