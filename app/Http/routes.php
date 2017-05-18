@@ -12,6 +12,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
         Route::get('/', 'ActivityController@index');# 活动
         Route::get('/detail/{id}', 'ActivityController@detail');
+        Route::post('/store', 'ActivityController@store');
 
     });
     Route::group(['prefix' => 'register', 'namespace' => 'Register'], function () {
