@@ -9,6 +9,11 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/detail/{id}', 'ProductController@detail');# 产品宣传页
 
     });
+    Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
+        Route::get('/', 'ActivityController@index');
+        Route::get('/detail/{id}', 'ActivityController@detail');# 产品宣传页
+
+    });
     Route::group(['prefix' => 'register', 'namespace' => 'Register'], function () {
         Route::get('/create', 'RegisterController@create');
         Route::post('/store', 'RegisterController@store');
