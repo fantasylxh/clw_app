@@ -51,7 +51,7 @@ class ActivityController extends Controller
             $new_arr[$i]['img_url']= env('ATTACHMENT_URL').$thumbnail[$i];
         $thumbnail = $new_arr;
 
-        $product_info =  [
+        $activity_info =  [
             'title'=>$model->title,
             'fee'=>$model->marketprice,
             'starttime'=>$model->unit,
@@ -65,7 +65,7 @@ class ActivityController extends Controller
         $count = $results->count();
         $records = ['count'=>$count,'records'=>$results->toArray()];
         $list = [
-            'activity_info'=>$product_info,
+            'activity_info'=>$activity_info,
             'records'=>$records
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'活动介绍','data'=>$list];
