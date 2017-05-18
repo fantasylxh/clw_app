@@ -63,10 +63,10 @@ class ActivityController extends Controller
         ];
         $results = $model->records()->get(['nickname', 'headimgurl']);
         $count = $results->count();
-        $records = ['count'=>$count,'records'=>$results->toArray()];
+        $records = ['count'=>$count,'users'=>$results->toArray()];
         $list = [
             'activity_info'=>$activity_info,
-            'users'=>$records
+            'records'=>$records
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'活动介绍','data'=>$list];
         return response()->json($result);
