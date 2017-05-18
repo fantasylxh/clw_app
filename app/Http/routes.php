@@ -5,13 +5,13 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/', 'IndexController@index');
     });
     Route::group(['prefix' => 'article', 'namespace' => 'Article'], function () {
-        Route::get('/', 'ArticleController@index');
-        Route::get('/detail/{id}', 'ProductController@detail');# 产品宣传页
+        Route::get('/', 'ArticleController@index'); #文章
+        Route::get('/detail/{id}', 'ProductController@detail');
 
     });
     Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
-        Route::get('/', 'ActivityController@index');
-        Route::get('/detail/{id}', 'ActivityController@detail');# 产品宣传页
+        Route::get('/', 'ActivityController@index');# 活动
+        Route::get('/detail/{id}', 'ActivityController@detail');
 
     });
     Route::group(['prefix' => 'register', 'namespace' => 'Register'], function () {

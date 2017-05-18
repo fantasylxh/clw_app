@@ -34,4 +34,42 @@ class ActivityController extends Controller
 
     }
 
+    /**
+     * 活动详情
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function detail($id)
+    {
+        $model = Activity::find($id);
+        if(!$model)
+            return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该活动','data'=>null]);
+
+        $thumbnail = unserialize($model->atlas);
+        for ($i=0;$i<count($thumbnail);$i++)
+            $new_arr[$i]['img_url']= env('ATTACHMENT_URL').$thumbnail[$i];
+        $thumbnail = $new_arr;
+
+        $product_info =  [
+            'title'=>$model->title,
+            'fee'=>$model->marketprice,
+            'starttime'=>$model->unit,
+            'is_online'=>$model->content,
+            'address'=>$model->address,
+            'detail'=>$model->detail,
+            'thumbnail'=>$thumbnail,
+            'is_online'=> $model->is_online
+        ];
+        $results = $model->records()->get(['nickname', 'headimgurl']);
+        $count = $results->count();
+        $records = ['count'=>$count,'records'=>$results->toArray()];
+        $list = [
+            'activity_info'=>$product_info,
+            'records'=>$records
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'活动介绍','data'=>$list];
+        return response()->json($result);
+    }
+
 }
