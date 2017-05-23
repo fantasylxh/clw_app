@@ -77,4 +77,28 @@ class ArticleController extends Controller
 
     }
 
+    /**
+     * 详情页
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function detail($id)
+    {
+        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v'])->find($id)->toArray();
+        if(!$model)
+            return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
+        $model['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
+
+        /* 相关新闻 */
+        $articles = Article::limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->get()->toArray();
+        $list = [
+            'article_info'=>$model, //
+            'articles'=>$articles //
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'帖子详情','data'=>$list];
+        return response()->json($result);
+
+    }
+
 }
