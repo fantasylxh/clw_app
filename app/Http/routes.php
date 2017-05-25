@@ -13,6 +13,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/index_3/{id}', 'ArticleController@index_3'); #社区生活
         Route::get('/categorys/{id}', 'ArticleController@categorys'); #区域分类
     });
+    Route::group(['prefix' => 'region', 'namespace' => 'Region'], function () {
+        Route::get('/', 'RegionController@index'); #区域分类
+    });
     Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
         Route::get('/', 'ActivityController@index');# 活动
         Route::get('/detail/{id}', 'ActivityController@detail');
