@@ -9,6 +9,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/detail/{id}', 'ArticleController@detail');
         Route::get('/index_1', 'ArticleController@index_1'); #名人访谈
         Route::get('/index_2', 'ArticleController@index_2'); #摄影列表
+        Route::get('/index_3', 'ArticleController@index_3'); #社区生活
+        Route::get('/index_3/{id}', 'ArticleController@index_3'); #社区生活
+        Route::get('/categorys/{id}', 'ArticleController@categorys'); #区域分类
     });
     Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
         Route::get('/', 'ActivityController@index');# 活动
