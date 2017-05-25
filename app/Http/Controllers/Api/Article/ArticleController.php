@@ -134,6 +134,7 @@ class ArticleController extends Controller
             'banner_articles'=>$banner_articles,
             'news_articles'=> $articles,
             'cloud_articles'=> $cloud_articles,
+            'collect_articles'=> $collect_articles,
             'more_articles'=> $more_articles,
             'current_position'=> $current_position,
         ];
