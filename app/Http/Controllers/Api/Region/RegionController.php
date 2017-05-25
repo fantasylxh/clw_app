@@ -18,11 +18,6 @@ class RegionController extends Controller
         try {
             $list = RegionCategory::select(['id','name'])->where(['parentid'=>0,'enabled'=>1])->get()->toArray();
             $result= $this->getMenuTree($list);
-//            foreach($result as &$val)
-//            {
-//                $val['children'] = $this->getMenuTree($val['children'] );
-//            }
-
             $result = ['code'=>200,'status'=>1,'message'=>'社区街道分类','data'=>$result];
         }
         catch (\Exception $e) {
