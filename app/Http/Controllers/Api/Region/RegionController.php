@@ -38,14 +38,17 @@ class RegionController extends Controller
      * @param int $level 层级数
      * @return array $arrTree 排序后的数组
      */
-    function getMenuTree($arrCat, $parent_id = 0)
+    function getMenuTree($arrCat, $parent_id = 0, $level = 0)
     {
         if( empty($arrCat)) return FALSE;
+        $level++;
         foreach($arrCat as  &$value)
         {
+            //$value[ 'level'] = $level;
             $result = RegionCategory::select(['id','name'])->where(['parentid'=>$value['id'],'enabled'=>1])->get()->toArray();
+            $tag = $level==1 ? 'street' : 'community';
             if($result)
-                $value['children'] = $this->getMenuTree($result);
+                $value[$tag] = $this->getMenuTree($result,$value['id'],$level);
         }
         return $arrCat;
     }
