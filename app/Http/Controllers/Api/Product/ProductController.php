@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         /* 最实惠 */
-        $recommend= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img"))->where(['ishot'=>1,'isrecommand'=>1])->get()->toArray();
+        $recommend= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img"))->where(['ishot'=>1,'isrecommand'=>1])->first()->toArray();
         /* 最实惠 */
         $bool= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price,unit"))->where(['isdiscount'=>1])->get()->toArray();
         /* 主题旅游 */
@@ -27,7 +27,7 @@ class ProductController extends Controller
         /* 限时特卖 */
         $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price,unit"))->where(['istime'=>1])->get()->toArray();
         /* 实惠商品 */
-        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,unit"))->where(['isnew'=>1])->first()->toArray();
+        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,unit"))->where(['isnew'=>1])->get()->toArray();
 
         $list = [
             'recommend'=>$recommend, //推荐
