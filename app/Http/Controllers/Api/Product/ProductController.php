@@ -27,7 +27,7 @@ class ProductController extends Controller
         /* 限时特卖 */
         $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price,unit,total"))->where(['istime'=>1])->get()->toArray();
         /* 实惠商品 */
-        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,unit,total"))->where(['isnew'=>1])->get()->toArray();
+        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,marketprice as product_price,unit,total"))->where(['isnew'=>1])->get()->toArray();
 
         $list = [
             'recommend'=>$recommend, //推荐
