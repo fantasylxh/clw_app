@@ -26,6 +26,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/create', 'RegisterController@create');
         Route::post('/store', 'RegisterController@store');
     });
+    Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
+        Route::any('/get-wx-user-info', 'UserController@getWxUserInfo');
+    });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {
         Route::get('/', 'ProductController@index');
