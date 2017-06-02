@@ -8,7 +8,7 @@ return [
     /**
      * 小程序Secret
      */
-    'secret' => '686011b62a5094c32016bdcc913d5d66',
+    'secret' => '9ab4978fc656bd17dbd21cbda3e40187',
     /**
      * 小程序登录凭证 code 获取 session_key 和 openid 地址，不需要改动
      */
