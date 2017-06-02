@@ -13,5 +13,6 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         '/activity/store',
+        '/user/get-wx-user-info',
     ];
 }
