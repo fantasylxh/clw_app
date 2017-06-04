@@ -33,6 +33,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::post('/store', 'UserController@store');//注册
         Route::post('/credit', 'UserController@credit');//积分查询
         Route::post('/message', 'UserController@message');//我的消息
+        Route::post('/letter', 'UserController@letter');//我的私信
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {
