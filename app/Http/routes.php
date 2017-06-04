@@ -32,6 +32,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::any('/get-wx-user-info', 'UserController@getWxUserInfo');
         Route::post('/store', 'UserController@store');//注册
         Route::post('/credit', 'UserController@credit');//积分查询
+        Route::post('/message', 'UserController@message');//我的消息
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {

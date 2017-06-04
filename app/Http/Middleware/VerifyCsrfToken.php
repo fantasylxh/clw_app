@@ -16,6 +16,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/article/comment',
         '/user/store',
         '/user/credit',
+        '/user/message',
         '/user/get-wx-user-info',
     ];
 }
