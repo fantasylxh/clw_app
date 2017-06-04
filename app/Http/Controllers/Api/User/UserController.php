@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Member;
 use Iwanli\Wxxcx\Wxxcx;
+use App\Http\Requests\Interfaces\MemberCheck;
 class UserController extends Controller
 {
+    use MemberCheck;
     protected $wxxcx;
 
     function __construct(Wxxcx $wxxcx)
@@ -79,5 +81,25 @@ class UserController extends Controller
 
     }
 
-
+    /**
+     *  积分查询
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function credit(Request $request)
+    {
+        $user_id = $this->checkMember(['openid'=>$request->openid]);
+        if(!$user_id)
+        {
+            $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册',''];
+            return response()->json($result);
+        }
+        $model =Member::where(['openid'=>$request->openid])->first();
+        $list = [
+            'userInfo'=>['credis'=>$model->credit1,'nickname'=>$model->nickname,'avatar'=>$model->avatar]
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$list];
+        return response()->json($result);
+    }
+    
 }
