@@ -103,7 +103,7 @@ class UserController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
         $model =Member::where(['openid'=>$request->openid])->first();
-        $info ='积分是手机客户端进行签到、购物、晒单等操作时<br>获得的通用积分,拥有积分后不仅可以在商城购物<br>我们的产品价格分为两种:采编和普通会员都可以享受会员价';
+        $info =\DB::table('config')->where('name', 'consumedesc')->first()->value;
         $model->level = $model->level>2 ? '采编会员' : ($model->level<=1 ? '普通游客' : '普通会员');
         $list = [
             'userInfo'=>['credit1'=>$model->credit1,'level'=>$model->level,'nickname'=>$model->nickname,'avatar'=>$model->avatar,'info'=>$info]
@@ -129,7 +129,7 @@ class UserController extends Controller
         unset($messages['from'],$messages['to']);
         foreach($messages['data'] as &$val)
             $val['createtime']= $this->formatTime($val['createtime']);
-        
+
         $list = [
             'messages'=> $messages,
         ];
