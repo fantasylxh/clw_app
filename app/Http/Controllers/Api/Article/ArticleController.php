@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Article;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -190,9 +191,37 @@ class ArticleController extends Controller
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'帖子详情','data'=>$list];
         return response()->json($result);
-
     }
+    /**
+     * 详情页
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function commentList($id)
+    {
+        $model = Article::find($id);
+        if(!$model)
+            return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
+        /* 留言列表 */
+        $comments = Article::find($id)->comments()->paginate(10)->toArray();
+        unset($comments['from'],$comments['to']);
+        foreach($comments['data'] as &$val)
+        {
+            $member = Member::find($val['member_id']);
+            $val['avatar'] = $member->avatar;
+            $val['nickname'] = $member->nickname;
+            $val['displayorder'] = $val['displayorder'].'楼';
+            unset($val['member_id']);
+        }
+
+        $list = [
+            'comments'=> $comments,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'留言列表','data'=>$list];
+        return response()->json($result);
+    }
     /**
      * 文章评论
      * @author      lxhui<772932587@qq.com>
@@ -217,7 +246,8 @@ class ArticleController extends Controller
             if(!$user_id)
                 $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
 
-            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => '1']);
+            $displayorder = ArticleComment::where(['article_id'=>$request->id])->max('displayorder');
+            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);
             $result = ['code'=>200,'status'=>1,'message'=>'留言成功'];
         }
         catch (\Exception $e) {
