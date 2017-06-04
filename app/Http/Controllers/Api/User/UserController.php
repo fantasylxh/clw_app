@@ -96,10 +96,10 @@ class UserController extends Controller
         }
         $model =Member::where(['openid'=>$request->openid])->first();
         $list = [
-            'userInfo'=>['credis'=>$model->credit1,'nickname'=>$model->nickname,'avatar'=>$model->avatar]
+            'userInfo'=>['credit1'=>$model->credit1,'nickname'=>$model->nickname,'avatar'=>$model->avatar]
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$list];
         return response()->json($result);
     }
-    
+
 }
