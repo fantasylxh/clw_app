@@ -6,7 +6,8 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     });
     Route::group(['prefix' => 'article', 'namespace' => 'Article'], function () {
         Route::get('/', 'ArticleController@index'); #文章
-        Route::post('/comment', 'ArticleController@comment'); #文章留言
+        Route::post('/comment', 'ArticleController@comment'); #发表文章留言
+        Route::get('/comment-list/{id}', 'ArticleController@commentList'); #文章留言列表
         Route::get('/detail/{id}', 'ArticleController@detail');
         Route::get('/index_1', 'ArticleController@index_1'); #名人访谈
         Route::get('/index_2', 'ArticleController@index_2'); #摄影列表
