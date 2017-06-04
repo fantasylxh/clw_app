@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Member;
+use App\Models\ShopNotice;
 use Iwanli\Wxxcx\Wxxcx;
 use App\Http\Requests\Interfaces\MemberCheck;
 class UserController extends Controller
@@ -111,6 +112,68 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * 我的消息
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function message(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
+        /* 消息列表 */
+        $model =Member::where(['openid'=>$request->openid])->first();
+        $messages = ShopNotice::select(\DB::raw("title,CONCAT('".env('ATTACHMENT_URL')."',thumb) as thumb,createtime"))->where(['status'=>1])->orWhere(['member_id'=>0])->orWhere(['member_id'=>$model->id])->paginate(10)->toArray();
+        unset($messages['from'],$messages['to']);
+        foreach($messages['data'] as &$val)
+            $val['createtime']= $this->formatTime($val['createtime']);
+        
+        $list = [
+            'messages'=> $messages,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'消息列表','data'=>$list];
+        return response()->json($result);
+    }
+
+
+    private function formatTime($date) {
+        $str = '';
+       // $timer = strtotime($date);
+        $timer = $date;
+        $diff = $_SERVER['REQUEST_TIME'] - $timer;
+        $day = floor($diff / 86400);
+        $free = $diff % 86400;
+        if($day > 0) {
+            return $day."天前";
+        }else{
+            if($free>0){
+                $hour = floor($free / 3600);
+                $free = $free % 3600;
+                if($hour>0){
+                    return $hour."小时前";
+                }else{
+                    if($free>0){
+                        $min = floor($free / 60);
+                        $free = $free % 60;
+                        if($min>0){
+                            return $min."分钟前";
+                        }else{
+                            if($free>0){
+                                return $free."秒前";
+                            }else{
+                                return '刚刚';
+                            }
+                        }
+                    }else{
+                        return '刚刚';
+                    }
+                }
+            }else{
+                return '刚刚';
+            }
+        }
+    }
 
 }
