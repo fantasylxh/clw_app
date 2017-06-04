@@ -66,7 +66,7 @@
 <ul>
 
 	 	<li <?php  if($_GPC['do'] == 'shop' ) { ?> <?php  if($_GPC['act'] == 'notice') { ?> class="current" <?php  } ?> <?php  } ?>>
-                    <a href="<?php  echo create_url('site',array('act' => 'notice','do' => 'shop','m' => 'eshop'))?>" >公告管理 </a>
+                    <a href="<?php  echo create_url('site',array('act' => 'notice','do' => 'shop','m' => 'eshop'))?>" >消息管理 </a>
                                     </li>
               <li 	<?php  if(($_GPC['act'] == 'index') ) { ?> <?php  if($_GPC['do']=='designer') { ?>class="current"<?php  } ?><?php  } ?>>
                     <a href="<?php  echo create_url('site',array('act' => 'index','do' => 'designer','m' => 'eshop'))?>">店铺装修 </a>
