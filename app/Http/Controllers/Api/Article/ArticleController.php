@@ -215,7 +215,6 @@ class ArticleController extends Controller
             $val['displayorder'] = $val['displayorder'].'楼';
             unset($val['member_id']);
         }
-
         $list = [
             'comments'=> $comments,
         ];
@@ -244,8 +243,10 @@ class ArticleController extends Controller
 
             $user_id = $this->checkMember(['openid'=>$request->openid]);
             if(!$user_id)
+            {
                 $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
-
+                return response()->json($result);
+            }
             $displayorder = ArticleComment::where(['article_id'=>$request->id])->max('displayorder');
             ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);
             $result = ['code'=>200,'status'=>1,'message'=>'留言成功'];
