@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Member;
 use App\Models\ShopNotice;
+use App\Models\MemberAddress;
 use Iwanli\Wxxcx\Wxxcx;
 use App\Http\Requests\Interfaces\MemberCheck;
 class UserController extends Controller
@@ -159,6 +160,51 @@ class UserController extends Controller
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'私信列表','data'=>$list];
         return response()->json($result);
+    }
+
+    /**
+     * 保存地址
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function storeAddress(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+        $messages = array(
+            'openid.required' => 'openid不能为空',
+            'realname.required' => 'realname姓名不能为空',
+            'mobile.required' => 'mobile电话不能为空',
+             'province.required' => 'province省不能为空',
+             'city.required' => 'city市不能为空',
+            // 'area.required' => 'area区域不能为空',
+            'address.required' => 'address地址不能为空',
+        );
+        $validator = \Validator::make($request->all(), [
+            'openid' => 'required',
+            'realname' => 'required',
+            'mobile' => 'required',
+             'province' => 'required',
+             'city' => 'required',
+            // 'area' => 'required',
+            'address' => 'required'
+        ], $messages);
+        if ($validator->fails())
+            return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+
+        $data = $request->all();
+        try {
+            $model = MemberAddress::firstOrCreate($data);
+            if($model)
+                return response()->json(['code'=>200,'status'=>1,'message'=>'保存成功']);
+            else
+                return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+        }
+        catch (\Exception $e) {
+            return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
+        }
     }
 
     private function formatTime($date) {
