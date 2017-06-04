@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Activity;
 use App\Models\ActivityRecord;
+use App\Http\Requests\Interfaces\MemberCheck;
 class ActivityController extends Controller
 {
+    use MemberCheck;
     /**
      * 活动列表
      * @author      lxhui<772932587@qq.com>
@@ -85,6 +87,12 @@ class ActivityController extends Controller
 
             if(!isset($data['activityid']) || !isset($data['openid']))
                 return response()->json(['code' => 200, 'status' => 0, 'message' => '活动 activityid和openid 不能为空!']);
+            $user_id = $this->checkMember(['openid'=>$request->openid]);
+            if(!$user_id)
+            {
+                $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
+                return response()->json($result);
+            }
 
             if(!isset($data['username'] )|| !isset($data['mobile']))
                 return response()->json(['code' => 200, 'status' => 0, 'message' => '姓名 username和手机号mobile 不能为空!']);
