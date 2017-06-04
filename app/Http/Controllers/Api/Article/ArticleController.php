@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Article;
+use App\Models\ArticleComment;
 use App\Models\RegionCategory;
+use App\Http\Requests\Interfaces\MemberCheck;
 class ArticleController extends Controller
 {
+    use MemberCheck;
     /**
      * 城里新闻列表
      * @author      lxhui<772932587@qq.com>
@@ -188,6 +191,39 @@ class ArticleController extends Controller
         $result = ['code'=>200,'status'=>1,'message'=>'帖子详情','data'=>$list];
         return response()->json($result);
 
+    }
+
+    /**
+     * 文章评论
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function comment(Request $request )
+    {
+        try {
+            $validator = \Validator::make($request->all(), [
+                'openid' => 'required',
+                'content' => 'required|max:255',
+            ]);
+            if ($validator->fails()) {
+                $result = ['code'=>200,'status'=>0,'message'=> $validator->errors()->first()];
+            }
+            $model = Article::find($request->id);
+            if(!$model)
+                $result = ['code'=>200,'status'=>0,'message'=>'找不到该帖子'];
+
+            $user_id = $this->checkMember(['openid'=>$request->openid]);
+            if(!$user_id)
+                $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
+
+            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => '1']);
+            $result = ['code'=>200,'status'=>1,'message'=>'留言成功'];
+        }
+        catch (\Exception $e) {
+            $result = ['code'=>200,'status'=>0,'message'=>$e->getMessage()];
+        }
+        return response()->json($result);
     }
 
 }
