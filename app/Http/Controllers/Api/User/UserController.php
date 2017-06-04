@@ -136,7 +136,30 @@ class UserController extends Controller
         $result = ['code'=>200,'status'=>1,'message'=>'消息列表','data'=>$list];
         return response()->json($result);
     }
+    /**
+     * 我的私信
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function letter(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
+        /* 私信列表 */
+        $model =Member::where(['openid'=>$request->openid])->first();
+        $messages = ShopNotice::select(\DB::raw("title,CONCAT('".env('ATTACHMENT_URL')."',thumb) as thumb,createtime"))->where(['status'=>1])->orWhere(['member_id'=>0])->orWhere(['member_id'=>$model->id])->paginate(10)->toArray();
+        unset($messages['from'],$messages['to']);
+        foreach($messages['data'] as &$val)
+            $val['createtime']= $this->formatTime($val['createtime']);
+
+        $list = [
+            'messages'=> $messages,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'私信列表','data'=>$list];
+        return response()->json($result);
+    }
 
     private function formatTime($date) {
         $str = '';
