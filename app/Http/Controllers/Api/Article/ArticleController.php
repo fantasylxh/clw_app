@@ -239,8 +239,11 @@ class ArticleController extends Controller
             }
             $model = Article::find($request->id);
             if(!$model)
+            {
                 $result = ['code'=>200,'status'=>0,'message'=>'找不到该帖子'];
-
+                return response()->json($result);
+            }
+            
             $user_id = $this->checkMember(['openid'=>$request->openid]);
             if(!$user_id)
             {
