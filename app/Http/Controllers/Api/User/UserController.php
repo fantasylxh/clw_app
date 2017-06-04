@@ -37,6 +37,16 @@ class UserController extends Controller
         //获取解密后的用户信息
         return $userInfo;
     }
+    /**
+     *  小程序用户权限验证
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    private function checkAuth(Request $request)
+    {
+        $user_id = $this->checkMember(['openid'=>$request->openid]);
+        return $user_id ? true : false;
+    }
 
     /**
      *  小程序注册同步用户信息
@@ -88,18 +98,19 @@ class UserController extends Controller
      */
     public function credit(Request $request)
     {
-        $user_id = $this->checkMember(['openid'=>$request->openid]);
-        if(!$user_id)
-        {
-            $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册',''];
-            return response()->json($result);
-        }
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
         $model =Member::where(['openid'=>$request->openid])->first();
+        $info ='积分是手机客户端进行签到、购物、晒单等操作时<br>获得的通用积分,拥有积分后不仅可以在商城购物<br>我们的产品价格分为两种:采编和普通会员都可以享受会员价';
+        $model->level = $model->level>2 ? '采编会员' : ($model->level<=1 ? '普通游客' : '普通会员');
         $list = [
-            'userInfo'=>['credit1'=>$model->credit1,'nickname'=>$model->nickname,'avatar'=>$model->avatar]
+            'userInfo'=>['credit1'=>$model->credit1,'level'=>$model->level,'nickname'=>$model->nickname,'avatar'=>$model->avatar,'info'=>$info]
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$list];
         return response()->json($result);
     }
+
+
 
 }

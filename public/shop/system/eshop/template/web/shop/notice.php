@@ -77,7 +77,7 @@
         <input type="hidden" name="id" value="<?php  echo $notice['id'];?>" />
         <div class="panel">
          
-              <h3 class="custom_page_header">   公告设置</h3>
+              <h3 class="custom_page_header">   消息设置</h3>
         
             <div class="panel-body">
             	 <input type="hidden" name="displayorder" value="<?php  echo $notice['displayorder'];?>" />
@@ -94,7 +94,7 @@
                 </div>
                       <?php  } ?>
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>公告标题</label>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>消息标题</label>
                     <div class="col-sm-9 col-xs-12">
                        
                         <input type="text" id='title' name="title" class="form-control" value="<?php  echo $notice['title'];?>" />
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">公告图片</label>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">消息图片</label>
                     <div class="col-sm-9 col-xs-12">
                       
                         <?php  echo tpl_form_field_image('thumb', $notice['thumb'])?>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">公告连接</label>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">消息连接</label>
                     <div class="col-sm-9 col-xs-12">
                     
                         <input type="text" name="link" class="form-control" value="<?php  echo $notice['link'];?>" />
@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">公告内容</label>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">消息内容</label>
                     <div class="col-sm-9 col-xs-12">    
                      
                             <?php  echo tpl_ueditor('detail',$notice['detail'])?>
