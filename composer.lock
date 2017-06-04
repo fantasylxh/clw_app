@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "55e0189572197de0b563540cd8aae6d3",
-    "content-hash": "5bd58fd976f1ee3e9611bc37c006ec46",
+    "hash": "9eeab9046a556141e35fe707c1cbb00c",
+    "content-hash": "1770a397651e207fa5537a529e030cf1",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -216,6 +216,43 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "iwanli/wxxcx",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lanceWan/wxxcx.git",
+                "reference": "146fc6d2f468c3ebb0e2734c40020b8cb9f7e850"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lanceWan/wxxcx/zipball/146fc6d2f468c3ebb0e2734c40020b8cb9f7e850",
+                "reference": "146fc6d2f468c3ebb0e2734c40020b8cb9f7e850",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Iwanli\\Wxxcx\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "晚黎",
+                    "email": "ibanya@126.com"
+                }
+            ],
+            "description": "A WeChat applet (xiaochengxu) plugins for Laravel 5.",
+            "time": "2017-05-27 07:03:14"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -2088,12 +2125,12 @@
             "version": "0.9.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/padraic/mockery.git",
+                "url": "https://github.com/mockery/mockery.git",
                 "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "shasum": ""
             },
