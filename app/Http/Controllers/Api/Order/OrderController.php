@@ -84,7 +84,7 @@ class OrderController extends Controller
     }
 
     /**
-     * 获取子区域分类
+     * 订单列表
      * @author      lxhui<772932587@qq.com>
      * @since 1.0
      * @return array

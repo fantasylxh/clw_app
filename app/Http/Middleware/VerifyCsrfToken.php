@@ -15,6 +15,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/activity/store',
         '/article/comment',
         '/user/store',
+        '/user/address',
         '/user/credit',
         '/user/message',
        '/user/letter',

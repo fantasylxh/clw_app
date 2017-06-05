@@ -163,6 +163,23 @@ class UserController extends Controller
     }
 
     /**
+     * 地址列表
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function address(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+        $list = [
+            'address'=> MemberAddress::select(['id','realname','mobile','province','city','area','address','isdefault'])->orderBy('id','desc')->where(['openid'=>$request->openid])->get()
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'收货地址列表','data'=>$list];
+        return response()->json($result);
+    }
+
+    /**
      * 保存地址
      * @author      lxhui<772932587@qq.com>
      * @since 1.0
