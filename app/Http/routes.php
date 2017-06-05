@@ -18,6 +18,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['prefix' => 'region', 'namespace' => 'Region'], function () {
         Route::get('/', 'RegionController@index'); #区域分类
     });
+    Route::group(['prefix' => 'order', 'namespace' => 'Order'], function () {
+        Route::post('/store', 'OrderController@store');
+    });
     Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
         Route::get('/', 'ActivityController@index');# 活动
         Route::get('/detail/{id}', 'ActivityController@detail');
