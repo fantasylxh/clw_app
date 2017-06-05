@@ -52,4 +52,29 @@ class Member extends Model
         'isblack',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class)->where('payment_status', 1);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function ordersWithProducts()
+    {
+        return $this->orders()->with(['products' => function ($query) {
+            $query->get();
+        }]);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function addresses()
+    {
+        return $this->hasMany('App\Models\Address');
+    }
+
 }
