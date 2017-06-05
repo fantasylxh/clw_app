@@ -91,15 +91,29 @@ class OrderController extends Controller
      */
     public function index(Request $request )
     {
+        if( !$this->checkMember(['openid'=>$request->openid]))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+        $list = Order::select(['id','price'])->where(['openid'=>$request->openid])->get()->address;
+        dd($list);
+        foreach($list as $val)
+        {
+            print_r($val->address()->realname);exit;
+        }
+        exit;
+
         try {
-            $list = RegionCategory::select(['id','name'])->where(['parentid'=>0,'enabled'=>1])->get()->toArray();
-            $result= $this->getMenuTree($list);
-            $result = ['code'=>200,'status'=>1,'message'=>'社区街道分类','data'=>$result];
+            $list = Order::select(['id','price'])->where(['openid'=>$request->openid])->get();
+            foreach($list as $val)
+            {
+print_r($val->address->realname);exit;
+            }
+
         }
         catch (\Exception $e) {
             $result = ['code'=>200,'status'=>0,'message'=>'找不到该分类','data'=>null];
         }
-        return response()->json($result);
+        return response()->json($list);
     }
 
 

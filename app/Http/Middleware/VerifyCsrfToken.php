@@ -22,5 +22,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/user/store-address',
         '/user/get-wx-user-info',
         '/order/store',
+        '/order/',
     ];
 }
