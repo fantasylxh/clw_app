@@ -18,20 +18,12 @@ class Order extends Model
      */
     public function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->belongsTo(\App\Models\MemberAddress::class,'addressid')->select(['realname','mobile','province','city','area','address','zipcode']);
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
-
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['quantity', 'specification_id']);
+        //return $this->belongsToMany(\App\Models\Product::class,'eshop_order_goods', 'id','goodsid')->select(\DB::raw("goodsid,title,unit,marketprice,CONCAT('".env('ATTACHMENT_URL')."',thumb) as thumb "))->withPivot('total');
+        return $this->belongsToMany(\App\Models\Product::class,'eshop_order_goods', 'id','goodsid')->select(['title','thumb','unit','marketprice'])->withPivot('total');
     }
 
 }
