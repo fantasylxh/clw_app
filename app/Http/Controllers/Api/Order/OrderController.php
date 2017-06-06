@@ -160,27 +160,21 @@ class OrderController extends Controller
      */
     public function index(Request $request )
     {
-        if( !$this->checkMember(['openid'=>$request->openid]))
-            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
-
-        $list = Order::select(['id','price'])->where(['openid'=>$request->openid])->get()->address;
-        dd($list);
-        foreach($list as $val)
-        {
-            print_r($val->address()->realname);exit;
-        }
-        exit;
 
         try {
-            $list = Order::select(['id','price'])->where(['openid'=>$request->openid])->get();
-            foreach($list as $val)
-            {
-print_r($val->address->realname);exit;
-            }
+            if( !$this->checkMember(['openid'=>$request->openid]))
+                return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
+            $list = Order::select(['id','ordersn','price','addressid','status','createtime','paytime'])->where(['openid'=>$request->openid])->get();
+            foreach($list as &$val)
+            {
+                $val['addressInfo'] =$val->address;
+                $val['goodsInfo'] =$val->products;
+            }
+            print_r($list);exit;
         }
         catch (\Exception $e) {
-            $result = ['code'=>200,'status'=>0,'message'=>'找不到该分类','data'=>null];
+            $result = ['code'=>200,'status'=>0,'message'=>$e->getMessage(),'data'=>null];
         }
         return response()->json($list);
     }
