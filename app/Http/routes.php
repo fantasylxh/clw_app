@@ -38,6 +38,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::post('/credit', 'UserController@credit');//积分查询
         Route::post('/message', 'UserController@message');//我的消息
         Route::post('/letter', 'UserController@letter');//我的私信
+        Route::post('/info', 'UserController@info');//基础信息
         Route::post('/address', 'UserController@address');//我的地址
         Route::post('/store-address', 'UserController@storeAddress');//我的私信
     });
