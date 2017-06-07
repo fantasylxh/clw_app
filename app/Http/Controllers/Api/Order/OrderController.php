@@ -10,6 +10,7 @@ use App\Models\MemberAddress;
 use App\Models\Product;
 use App\Http\Requests;
 use App\Http\Requests\Interfaces\MemberCheck;
+use Carbon\Carbon;
 class OrderController extends Controller
 {
     use MemberCheck;
@@ -160,21 +161,23 @@ class OrderController extends Controller
      */
     public function index(Request $request )
     {
-
-        try {
-            if( !$this->checkMember(['openid'=>$request->openid]))
-                return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
-
-            $list = Order::select(['id','ordersn','price','addressid','status','createtime','paytime'])->where(['openid'=>$request->openid])->get();
-            foreach($list as &$val)
-            {
-                $val['addressInfo'] =$val->address;
-                $val['goodsInfo'] =$val->products;
-            }
-            print_r($list);exit;
+        $status = $request->status ? $request->status : 0;
+        $list = Order::select(['id','ordersn','price','addressid','status','createtime','paytime'])->where(['openid'=>$request->openid,'status'=>$status])->paginate(10);
+        foreach($list as $val)
+        {
+            $val['createtime'] = date('Y-m-d H:i:s',$val['createtime']);
+            $val['paytime'] = $val['paytime'] ? date('Y-m-d H:i:s',$val['paytime']) : 0;
+            $val->address->toArray();
+            $val->products->toArray();
         }
-        catch (\Exception $e) {
-            $result = ['code'=>200,'status'=>0,'message'=>$e->getMessage(),'data'=>null];
+        $list = $list ? $list->toArray() : [];
+        foreach($list['data'] as &$data)
+        {
+            foreach($data['products'] as &$v)
+            {
+                $v['total']=$v['pivot']['total'];
+                unset($v['pivot']);
+            }
         }
         return response()->json($list);
     }

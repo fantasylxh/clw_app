@@ -38,4 +38,10 @@ class Product extends Model
         return $this->hasMany('App\Models\ProductBannerImage', 'product_id');
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'eshop_order_goods', 'id', 'goodsid');
+    }
+
+
 }
