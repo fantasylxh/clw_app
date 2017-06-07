@@ -112,7 +112,22 @@ class UserController extends Controller
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$list];
         return response()->json($result);
     }
+    /**
+     *  用户信息
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function info(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
+        $model =Member::select(['avatar','nickname','gender','province','city','area','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
+        $model->createtime = date('Y-m-d H:i:s',$model->createtime);
+
+        $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$model];
+        return response()->json($result);
+    }
     /**
      * 我的消息
      * @author      lxhui<772932587@qq.com>
