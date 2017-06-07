@@ -171,6 +171,7 @@ class OrderController extends Controller
             $val->products->toArray();
         }
         $list = $list ? $list->toArray() : [];
+        unset($list['from'],$list['to']);
         foreach($list['data'] as &$data)
         {
             foreach($data['products'] as &$v)
