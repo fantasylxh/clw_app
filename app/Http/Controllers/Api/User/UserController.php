@@ -128,6 +128,41 @@ class UserController extends Controller
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$model];
         return response()->json($result);
     }
+
+    /**
+     *  修改用户信息
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editInfo(Request $request)
+    {
+        $messages = array(
+            'area.required' => 'area区域不能为空',
+            'street.required' => 'street街道不能为空',
+        );
+        $validator = \Validator::make($request->all(), [
+            'area' => 'required',
+            'street' => 'required'
+        ], $messages);
+
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+        if ($validator->fails())
+            return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+
+        $data = $request->all();
+        try {
+            $model = Member::where(['openid' => $request->openid])->update(['area'=>$request->area,'street'=>$request->street]);
+            if($model)
+                return response()->json(['code'=>200,'status'=>1,'message'=>'修改成功']);
+            else
+                return response()->json(['code'=>200,'status'=>0,'message'=>'修改失败']);
+        }
+        catch (\Exception $e) {
+            return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
+        }
+    }
     /**
      * 我的消息
      * @author      lxhui<772932587@qq.com>
