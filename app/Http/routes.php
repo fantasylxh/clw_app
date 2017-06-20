@@ -46,6 +46,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {
         Route::get('/', 'ProductController@index');
+        Route::get('/index1', 'ProductController@index1');
         Route::get('/detail/{id}', 'ProductController@detail');# 产品宣传页
 
     });
