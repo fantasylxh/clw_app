@@ -7,8 +7,11 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['prefix' => 'article', 'namespace' => 'Article'], function () {
         Route::get('/', 'ArticleController@index'); #文章
         Route::post('/comment', 'ArticleController@comment'); #发表文章留言
+        Route::post('/vote', 'ArticleController@vote'); #投票
         Route::get('/comment-list/{id}', 'ArticleController@commentList'); #文章留言列表
         Route::get('/detail/{id}', 'ArticleController@detail');
+        Route::get('/reporter/{id}', 'ArticleController@reporter');//特约记者详情
+        Route::get('/personal/{id}', 'ArticleController@personal');//社区名人详情
         Route::get('/index_1', 'ArticleController@index_1'); #名人访谈
         Route::get('/index_2', 'ArticleController@index_2'); #摄影列表
         Route::get('/index_3', 'ArticleController@index_3'); #社区生活

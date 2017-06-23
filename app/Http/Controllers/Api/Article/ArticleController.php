@@ -260,4 +260,102 @@ class ArticleController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * 特约记者详情
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function reporter($id)
+    {
+        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v'])->find($id)->toArray();
+        if(!$id)
+            return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
+
+        $reporter = Article::select(\DB::raw("id,article_author as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content "))->find($id)->toArray();
+        $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
+        $reporter['usercode'] = '2030040506';
+        $reporter['job'] = '社区站长';
+        /* 我的读者 */
+        $vote_info= Article::orderBy('id','desc')->select(\DB::raw("id ,resp_desc,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->first()->toArray();
+        $vote_info['votes']=12;
+        /* 社区生活/ */
+        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>10])->get()->toArray();
+
+        $list = [
+            'reporter_info'=>$reporter,
+            'vote_info'=>$vote_info ,
+            'articles'=>$articles
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'记者详情','data'=>$list];
+        return response()->json($result);
+    }
+
+    /**
+     * 特约记者详情
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function personal($id)
+    {
+        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v'])->find($id)->toArray();
+        if(!$id)
+            return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
+
+        $reporter = Article::select(\DB::raw("id,article_author as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content "))->find($id)->toArray();
+        $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
+        $reporter['usercode'] = '2030040506';
+        $reporter['job'] = '社区站长';
+        /* 我的读者 */
+        $vote_info= Article::orderBy('id','desc')->select(\DB::raw("id ,resp_desc,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->first()->toArray();
+        $vote_info['votes']=32;
+        $list = [
+            'reporter_info'=>$reporter,
+            'vote_info'=>$vote_info ,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'记者详情','data'=>$list];
+        return response()->json($result);
+    }
+
+    /**
+     * 投票
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function vote(Request $request )
+    {
+        try {
+            $validator = \Validator::make($request->all(), [
+                'openid' => 'required',
+                'id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                $result = ['code'=>200,'status'=>0,'message'=> $validator->errors()->first()];
+            }
+            $model = Article::find($request->id);
+            if(!$model)
+            {
+                $result = ['code'=>200,'status'=>0,'message'=>'找不到该投票id'];
+                return response()->json($result);
+            }
+
+            $user_id = $this->checkMember(['openid'=>$request->openid]);
+            if(!$user_id)
+            {
+                $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
+                return response()->json($result);
+            }
+/*            $displayorder = ArticleComment::where(['article_id'=>$request->id])->max('displayorder');
+            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);*/
+            $result = ['code'=>200,'status'=>0,'message'=>'您已经投票过了'];
+        }
+        catch (\Exception $e) {
+            $result = ['code'=>200,'status'=>0,'message'=>$e->getMessage()];
+        }
+        return response()->json($result);
+    }
+
+
 }
