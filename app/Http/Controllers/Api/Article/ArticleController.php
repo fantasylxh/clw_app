@@ -349,7 +349,7 @@ class ArticleController extends Controller
             }
 /*            $displayorder = ArticleComment::where(['article_id'=>$request->id])->max('displayorder');
             ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);*/
-            $result = ['code'=>200,'status'=>1,'message'=>'投票成功'];
+            $result = ['code'=>200,'status'=>0,'message'=>'您已经投票过了'];
         }
         catch (\Exception $e) {
             $result = ['code'=>200,'status'=>0,'message'=>$e->getMessage()];
