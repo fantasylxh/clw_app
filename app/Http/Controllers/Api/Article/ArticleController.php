@@ -314,7 +314,7 @@ class ArticleController extends Controller
             'reporter_info'=>$reporter,
             'vote_info'=>$vote_info ,
         ];
-        $result = ['code'=>200,'status'=>1,'message'=>'记者详情','data'=>$list];
+        $result = ['code'=>200,'status'=>1,'message'=>'社区名人详情','data'=>$list];
         return response()->json($result);
     }
 
