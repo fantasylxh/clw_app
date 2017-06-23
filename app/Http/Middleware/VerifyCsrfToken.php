@@ -14,6 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         '/activity/store',
         '/article/comment',
+        '/article/vote',
         '/user/store',
         '/user/address',
         '/user/credit',
