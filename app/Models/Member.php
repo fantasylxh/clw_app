@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     protected $table = 'eshop_member';
-    public $timestamps = false;
+    const UPDATED_AT='updatetime';
+    const CREATED_AT = 'createtime';
+    //public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +25,7 @@ class Member extends Model
         'mobile',
         'weixin',
         'content',
-        'createtime',
+      //  'createtime',
         'agenttime',
         'status',
         'isagent',
@@ -41,6 +43,7 @@ class Member extends Model
         'province',
         'city',
         'area',
+        'street',
         'childtime',
         'inviter',
         'agentnotupgrade',
@@ -51,7 +54,9 @@ class Member extends Model
         'commission_pay',
         'isblack',
     ];
-
+    public function fromDateTime($value){
+        return strtotime(parent::fromDateTime($value));
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

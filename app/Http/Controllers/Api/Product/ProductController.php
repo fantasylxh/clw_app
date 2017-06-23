@@ -42,6 +42,24 @@ class ProductController extends Controller
     }
 
     /**
+     * 积分商品
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function index1(Request $request)
+    {
+        $products= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,total as credit"))->where([])->paginate(10)->toArray();
+
+        $list = [
+            'products'=>$products //实惠商品
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'积分商品列表','data'=>$list];
+        return response()->json($result);
+
+    }
+
+    /**
      * 产品宣传
      * @author      lxhui<772932587@qq.com>
      * @since 1.0

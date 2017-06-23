@@ -44,10 +44,12 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::post('/info', 'UserController@info');//基础信息
         Route::post('/address', 'UserController@address');//我的地址
         Route::post('/store-address', 'UserController@storeAddress');//我的私信
+        Route::post('/edit-info', 'UserController@editInfo');//修改信息
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {
         Route::get('/', 'ProductController@index');
+        Route::get('/index1', 'ProductController@index1');
         Route::get('/detail/{id}', 'ProductController@detail');# 产品宣传页
 
     });
