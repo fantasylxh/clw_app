@@ -59,7 +59,7 @@ class IndexController extends Controller
      */
     public function about(Request $request)
     {
-        $about = '<div style="width:1000px; margin:0 auto; background:#fff; margin-top:20px; height:600px;">
+        $about = '<div style="width:100%; margin:0 auto; background:#fff; margin-top:20px; height:600px;">
         <ul style="margin-left:50px;">
         <li style="height:10px;"></li>
         <li style="font-size:22px; margin-top:20px;"><b>联系方式</b></li>
