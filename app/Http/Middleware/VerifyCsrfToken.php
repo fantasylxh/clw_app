@@ -20,6 +20,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/user/credit',
         '/user/message',
         '/user/letter',
+        '/user/login',
         '/user/info',
         '/user/store-address',
         '/user/edit-info',

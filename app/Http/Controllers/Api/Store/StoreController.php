@@ -16,10 +16,10 @@ class StoreController extends Controller
      */
     public function index(Request $request)
     {
+
         $list = Store::orderBy('id','desc')->select(\DB::raw("id,storename,address,tel"))->where(['status'=>1])->get()->toArray();
         $result = ['code'=>200,'status'=>1,'message'=>'门店列表','data'=>$list];
         return response()->json($result);
-
     }
 
 }
