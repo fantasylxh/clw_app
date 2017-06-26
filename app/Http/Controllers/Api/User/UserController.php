@@ -122,7 +122,7 @@ class UserController extends Controller
         if(!$this->checkAuth($request))
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
-        $model =Member::select(['avatar','nickname','gender','province','city','area','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
+        $model =Member::select(['avatar','nickname','gender','province','city','area','street','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
         //$model->createtime = date('Y-m-d H:i:s',$model->createtime);
 
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$model];
