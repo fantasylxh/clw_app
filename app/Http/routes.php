@@ -22,6 +22,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['prefix' => 'region', 'namespace' => 'Region'], function () {
         Route::get('/', 'RegionController@index'); #区域分类
     });
+    Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
+        Route::get('/', 'StoreController@index'); #门店列表
+    });
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function () {
         Route::post('/store', 'OrderController@store');
         Route::post('/', 'OrderController@index');
