@@ -59,7 +59,7 @@ class IndexController extends Controller
      */
     public function about(Request $request)
     {
-        $about = '<div style="width:100%; margin:0 auto; background:#fff; margin-top:20px; height:600px;">
+        $about = '<div>
         <ul style="margin-left:50px;">
         <li style="height:10px;"></li>
         <li style="font-size:22px; margin-top:20px;"><b>联系方式</b></li>
@@ -82,7 +82,7 @@ class IndexController extends Controller
      */
     public function alert(Request $request)
     {
-        $about = '<div style="width:100%; margin:0 auto; background:#fff; margin-top:20px; height:600px;">
+        $about = '<div>
         <ul style="margin-left:50px;">
         <li style="height:10px;"></li>
         <li style="font-size:22px; margin-top:20px;"><b>发稿申明</b></li>
