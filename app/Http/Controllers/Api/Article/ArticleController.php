@@ -170,6 +170,38 @@ class ArticleController extends Controller
     }
 
     /**
+     * 我的发稿列表
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function index_5(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'openid' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $result = ['code'=>200,'status'=>0,'message'=> $validator->errors()->first()];
+        }
+
+        $user_id = $this->checkMember(['openid'=>$request->openid]);
+        if(!$user_id)
+        {
+            $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
+            return response()->json($result);
+        }
+        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where([])->paginate(10)->toArray();
+        unset($articles['from'],$articles['to']);
+
+        $list = [
+            'more_articles'=> $articles,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'发稿列表','data'=>$list];
+        return response()->json($result);
+
+    }
+
+    /**
      * 获取子区域分类
      * @author      lxhui<772932587@qq.com>
      * @since 1.0
