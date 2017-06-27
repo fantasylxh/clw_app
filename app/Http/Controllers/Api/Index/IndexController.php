@@ -74,4 +74,23 @@ class IndexController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * 发稿申明
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function alert(Request $request)
+    {
+        $about = '<div style="width:100%; margin:0 auto; background:#fff; margin-top:20px; height:600px;">
+        <ul style="margin-left:50px;">
+        <li style="height:10px;"></li>
+        <li style="font-size:22px; margin-top:20px;"><b>发稿申明</b></li>
+
+        <li style="font-size:16px;  line-height:40px;">城里网特约记者可以发稿城里生活 </li>
+        </ul></div>';
+        $result = ['code'=>200,'status'=>1,'message'=>'发稿申明','data'=>$about];
+        return response()->json($result);
+    }
+
 }
