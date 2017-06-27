@@ -3,6 +3,8 @@
 Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Index'], function () {
         Route::get('/', 'IndexController@index');
+        Route::get('/about', 'IndexController@about');
+        Route::get('/alert', 'IndexController@alert');
     });
     Route::group(['prefix' => 'article', 'namespace' => 'Article'], function () {
         Route::get('/', 'ArticleController@index'); #文章
@@ -20,6 +22,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     });
     Route::group(['prefix' => 'region', 'namespace' => 'Region'], function () {
         Route::get('/', 'RegionController@index'); #区域分类
+    });
+    Route::group(['prefix' => 'store', 'namespace' => 'Store'], function () {
+        Route::get('/', 'StoreController@index'); #门店列表
     });
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function () {
         Route::post('/store', 'OrderController@store');
@@ -45,6 +50,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::post('/address', 'UserController@address');//我的地址
         Route::post('/store-address', 'UserController@storeAddress');//我的私信
         Route::post('/edit-info', 'UserController@editInfo');//修改信息
+        Route::post('/login', 'UserController@login');//记者登录
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {

@@ -122,7 +122,7 @@ class UserController extends Controller
         if(!$this->checkAuth($request))
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
-        $model =Member::select(['avatar','nickname','gender','province','city','area','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
+        $model =Member::select(['avatar','nickname','gender','province','city','area','street','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
         //$model->createtime = date('Y-m-d H:i:s',$model->createtime);
 
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$model];
@@ -268,6 +268,48 @@ class UserController extends Controller
                 return response()->json(['code'=>200,'status'=>1,'message'=>'保存成功']);
             else
                 return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+        }
+        catch (\Exception $e) {
+            return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
+        }
+    }
+
+
+
+    /**
+     *  记者登录
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function login(Request $request)
+    {
+        $messages = array(
+            'realname.required' => '姓名不能为空',
+            'usercode.required' => '采编证号不能为空',
+        );
+        $validator = \Validator::make($request->all(), [
+            'realname' => 'required',
+            'usercode' => 'required'
+        ], $messages);
+
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+        if ($validator->fails())
+            return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+
+        $data = $request->all();
+        try {
+            $model = Member::where(['openid' => $request->openid,'realname'=>$request->realname,'usercode'=>$request->usercode])->first();
+            if($model)
+            {
+                $csrf_token = $model->openid.csrf_token();
+                $model->csrf_token =$csrf_token;
+                $model->save();
+                return response()->json(['code'=>200,'status'=>1,'message'=>'登录成功','data'=>['csrf_token'=>$csrf_token]]);
+            }
+            else
+                return response()->json(['code'=>200,'status'=>0,'message'=>'账号不存在']);
         }
         catch (\Exception $e) {
             return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
