@@ -10,6 +10,7 @@ use App\Models\Article;
 use App\Models\ArticleComment;
 use App\Models\RegionCategory;
 use App\Http\Requests\Interfaces\MemberCheck;
+use Storage;
 class ArticleController extends Controller
 {
     use MemberCheck;
@@ -244,6 +245,80 @@ class ArticleController extends Controller
         $result = ['code'=>200,'status'=>1,'message'=>'帖子详情','data'=>$list];
         return response()->json($result);
     }
+
+    /**
+     * 发稿
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function upload(Request $request)
+    {
+        //if ($request->isMethod('post')) {
+        $data = $request->all();
+        \Log::info(json_encode($data));
+
+        $messages = array(
+            'openid.required' => 'openid不能为空',
+            'article_title.required' => '标题不能为空',
+            'article_content.required' => '内容不能为空',
+            'csrf_token.required' => 'csrf_token不能为空',
+        );
+        $validator = \Validator::make($data, [
+            'openid' => 'required',
+            'article_title' => 'required',
+            'article_content' => 'required',
+            'csrf_token' => 'required',
+        ], $messages);
+        $validator->after(function($validator) use ($data) {
+            $csrf_token= Member::where(['openid'=> $data['openid']])->first()->csrf_token;
+            if ($csrf_token!=$data['csrf_token'])
+                $validator->errors()->add('', 'csrf_token 无效');
+        });
+
+        if ($validator->fails())
+            return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+
+        $file = $request->file('picture');
+        if($file)
+        {
+            // 文件是否上传成功
+            if ($file->isValid()) {
+                // 获取文件相关信息
+                $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                $type = $file->getClientMimeType();     // image/jpeg
+                // 上传文件
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                // 使用我们新建的uploads本地存储空间（目录）
+                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
+                $resp_img = 'jpg/'.date('Y').'/'.date('m').'/'.$filename;
+            }
+        }
+        try{
+            /* 保存 */
+            $model =  new Article();
+            $model->article_title = $request->article_title;// 标题
+            $model->article_content = $request->article_content;//内容
+            $model->article_category = 5;//分类 5
+            $model->resp_img = $resp_img ? $resp_img : ''; //图片
+            $model->article_date_v = date('Y-m-d');
+            $model->article_date = date('Y-m-d H:i:s');
+            $model->article_author = Member::where(['openid'=> $data['openid']])->first()->nickname;;
+            $model->category_id = $request->category_id; //区域id
+            $model->save();
+            return response()->json(['code'=>200,'status'=>1,'message'=>'发帖成功']);
+        }
+        catch (\Exception $e){
+            return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
+        }
+
+       // }
+        return view('upload');
+    }
+
+
     /**
      * 详情页
      * @author      lxhui<772932587@qq.com>
@@ -409,5 +484,9 @@ class ArticleController extends Controller
         return response()->json($result);
     }
 
-
+    private function is_json($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
 }

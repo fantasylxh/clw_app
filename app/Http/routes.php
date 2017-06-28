@@ -21,6 +21,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::post('/index_5', 'ArticleController@index_5'); #我的发稿列表
         Route::get('/index_3/{id}', 'ArticleController@index_3'); #社区生活
         Route::get('/categorys/{id}', 'ArticleController@categorys'); #区域分类
+        Route::any('/upload', 'ArticleController@upload'); #发稿
     });
     Route::group(['prefix' => 'region', 'namespace' => 'Region'], function () {
         Route::get('/', 'RegionController@index'); #区域分类
