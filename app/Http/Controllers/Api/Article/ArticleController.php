@@ -305,8 +305,9 @@ class ArticleController extends Controller
             $model->resp_img = $resp_img ? $resp_img : ''; //图片
             $model->article_date_v = date('Y-m-d');
             $model->article_date = date('Y-m-d H:i:s');
-            $model->article_author = Member::where(['openid'=> $data['openid']])->first()->nickname;;
+            $model->article_author = Member::where(['openid'=> $data['openid']])->first()->nickname;
             $model->category_id = $request->category_id; //区域id
+            $model->openid = $request->openid;
             $model->save();
             return response()->json(['code'=>200,'status'=>1,'message'=>'发帖成功']);
         }
