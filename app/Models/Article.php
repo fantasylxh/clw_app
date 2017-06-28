@@ -15,7 +15,7 @@ class Article extends Model
      * @var string
      */
     protected $table = 'eshop_article';
-
+    public $timestamps = false;
     /**
      * 获取文章的评论
      */

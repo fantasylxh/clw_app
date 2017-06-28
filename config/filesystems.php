@@ -48,6 +48,21 @@ return [
             'root'   => storage_path('app'),
         ],
 
+        'public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'visibility' => 'public',
+        ],
+        // 新建一个本地端uploads空间（目录） 用于存储上传的文件
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('shop/attachment/jpg/'.date('Y').'/'.date('m')),// 文件将上传到public/uploads目录
+        ],
+        // 新建一个本地端uploads空间（目录） 用于存储上传的文件
+        'uploads2' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/shop/attachment/jpg'),  // 文件将上传到目录
+        ],
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',
