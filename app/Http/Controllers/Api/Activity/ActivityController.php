@@ -99,7 +99,15 @@ class ActivityController extends Controller
 
             $where = ['openid'=>$data['openid'],'activityid'=>$data['activityid']];
             try {
-                $update_data = ['username'=>$data['username'],'mobile'=>$data['mobile'],'street'=>$data['street'],'region'=>$data['region'],'headimgurl'=>'https://users.chengliwang.com/shop/attachment/jpg/1.jpg'];
+                $update_data = [
+                    'username'=>$data['username'],
+                    'nickname'=>\App\Models\Member::where(['openid'=>$data['openid']])->first()->nickname,
+                    'mobile'=>$data['mobile'],
+                    'street'=>isset($data['street']) ? $data['street'] : '',
+                    'region'=>isset($data['region']) ? $data['region'] : '',
+                    'headimgurl'=>'https://users.chengliwang.com/shop/attachment/jpg/1.jpg'
+
+                ];
                 ActivityRecord::updateOrCreate($where,$update_data);
                 return response()->json(['code'=>200, 'status' => 1,'message' => '登记成功' ]);
 
