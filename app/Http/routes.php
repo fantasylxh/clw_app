@@ -32,6 +32,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function () {
         Route::post('/store', 'OrderController@store');
         Route::post('/', 'OrderController@index');
+        Route::post('/freight', 'OrderController@freight');
     });
     Route::group(['prefix' => 'activity', 'namespace' => 'Activity'], function () {
         Route::get('/', 'ActivityController@index');# 活动

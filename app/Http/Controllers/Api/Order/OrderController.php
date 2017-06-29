@@ -27,7 +27,22 @@ class OrderController extends Controller
         return date("YmdHis").$usec.$str;
     }
 
+    /**
+     * order fee
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function freight(Request $request )
+    {
+        $result =json_decode($request->orderInfo,true);
+        if( !$result)
+            return response()->json(['code'=>200,'status'=>0,'message'=>'订单商品信息不能为空']);
 
+        $list = ['name'=>'邮政小包裹','fee'=>20];
+        $result = ['code'=>200,'status'=>1,'message'=>'订单运费','data'=>$list];
+        return response()->json($result);
+    }
     /**
      * order
      * @author      lxhui<772932587@qq.com>
@@ -78,6 +93,7 @@ class OrderController extends Controller
             $order->goodsprice = $totalFee;
             $order->createtime =time();
             $order->addressid = $model->id;
+            $order->storeid = $request->storeid;
             $order->save();
             $orderid = $order->id;
 
