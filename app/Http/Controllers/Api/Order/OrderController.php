@@ -78,6 +78,7 @@ class OrderController extends Controller
             $order->goodsprice = $totalFee;
             $order->createtime =time();
             $order->addressid = $model->id;
+            $order->storeid = $request->storeid;
             $order->save();
             $orderid = $order->id;
 

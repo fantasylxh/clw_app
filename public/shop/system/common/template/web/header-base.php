@@ -96,12 +96,12 @@
             		<a href="<?php  echo create_url('site',array('act' => 'sale','do' => 'statistics','m' => 'eshop'))?>">数据统计</a></li> 
             			
             			
-            			
-            			   <li <?php  if($_GPC['do'] == 'commission'|| $_GPC['do'] == 'poster'||$_GPC['act'] == 'dingtalk') {  $menuindex='commission';  } ?>">
-            		<a href="<?php  echo create_url('site',array('do' => 'commission','m' => 'eshop','act'=>'agent'))?>">分销</a></li>   
+<!--            			-->
+<!--            			   <li --><?php // if($_GPC['do'] == 'commission'|| $_GPC['do'] == 'poster'||$_GPC['act'] == 'dingtalk') {  $menuindex='commission';  } ?><!--">-->
+<!--            		<a href="--><?php // echo create_url('site',array('do' => 'commission','m' => 'eshop','act'=>'agent'))?><!--">分销</a></li>   -->
 
-            			   <li <?php  if(($_GPC['act'] == 'entry'&&$_GPC['do'] == 'reply')||$_GPC['act'] == 'weixin'||$_GPC['act'] == 'qq') { ?><?php   $menuindex='entry';  } ?>">
-            		<a href="<?php  echo create_url('site',array('act' => 'entry','do' => 'reply','rtype'=>'basic'))?>">第三方接入</a></li>   
+<!--            			   <li --><?php // if(($_GPC['act'] == 'entry'&&$_GPC['do'] == 'reply')||$_GPC['act'] == 'weixin'||$_GPC['act'] == 'qq') { ?><!----><?php //  $menuindex='entry';  } ?><!--">-->
+<!--            		<a href="--><?php // echo create_url('site',array('act' => 'entry','do' => 'reply','rtype'=>'basic'))?><!--">第三方接入</a></li>   -->
 <?php $addonscount=mysqld_selectcolumn("select count(name) from ".table('modules')." where isdisable=0");if($addonscount>0){?>
    <li <?php  if($GLOBALS['_CMS']['isaddons']) { ?><?php   $menuindex='addons';  } ?>">
             		<a href="<?php  echo create_url('site',array('act' => 'public','do' => 'isaddons'))?>">扩展模块</a></li>
