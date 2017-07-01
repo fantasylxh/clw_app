@@ -43,6 +43,22 @@ class OrderController extends Controller
         $result = ['code'=>200,'status'=>1,'message'=>'订单运费','data'=>$list];
         return response()->json($result);
     }
+
+    /**
+     * 积分订单信息
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function credit(Request $request)
+    {
+        if( !$this->checkMember(['openid'=>$request->openid]))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+        $list = [ 'credit3'=>12, 'order_count'=> 1 ];
+        $result = ['code'=>200,'status'=>1,'message'=>'积分订单信息','data'=>$list];
+        return response()->json($result);
+    }
+
     /**
      * order
      * @author      lxhui<772932587@qq.com>
