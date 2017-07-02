@@ -16,6 +16,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/article/index_5',
         '/article/comment',
         '/article/upload',
+        '/article/upload-image',
         '/article/vote',
         '/user/store',
         '/user/address',
