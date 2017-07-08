@@ -28,7 +28,7 @@ header("location:".create_url('mobile',array('act' => 'center','do' => 'member',
 			{
 					message("请输入手机号！");	
 			}
-				$member = mysqld_select("SELECT * FROM ".table('eshop_member')." where mobile=:mobile or usercode=:usercode", array(':mobile' => $mobile,':usercode' => $usercode,':beid'=>$_CMS['beid']));
+				$member = mysqld_select("SELECT * FROM ".table('eshop_member')." where mobile=:mobile or usercode=:usercode", array(':mobile' => $mobile,':usercode' => $usercode));
 			if(!empty($member['openid']))
 			{
 					message($mobile.'和采编号'.$usercode."已被注册。");
