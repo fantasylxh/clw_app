@@ -195,7 +195,7 @@ function member_create_new($mobile,$pwd,$usercode,$realname)
                 'pwd' =>$pwd,
                 'createtime' => time(),
                 'openid' =>$openid,'beid'=>$_CMS['beid']);
-				mysqld_insert('base_member', $data);
+				//mysqld_insert('base_member', $data);
 				
 
             
