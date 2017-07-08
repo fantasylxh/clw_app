@@ -170,5 +170,5 @@ function submitlogin(obj) {
     
 
 <?php  $show_footer=true;?>
-<?php include page('footer_menu');?>
+
 <?php include page('footer_base');?>
