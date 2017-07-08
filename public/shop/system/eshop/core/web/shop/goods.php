@@ -290,6 +290,7 @@ if ($operation == "change") {
             'productprice' => trim($_GPC['productprice']),
             'productsn' => trim($_GPC['productsn']),
             'credit' => trim($_GPC['credit']),
+            'credit2' => trim($_GPC['credit2']),
             'maxbuy' => intval($_GPC['maxbuy']),
             'usermaxbuy' => intval($_GPC['usermaxbuy']),
             'hasoption' => intval($_GPC['hasoption']),

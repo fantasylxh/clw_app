@@ -181,14 +181,14 @@
    
         <div class="input-group form-group">
 
-            <span class="input-group-addon">现价</span>
+            <span class="input-group-addon">淘宝价</span>
             <input type="text" name="marketprice" id="marketprice" class="form-control" value="<?php  echo $item['marketprice'];?>" />
             <span class="input-group-addon">元</span>
         </div>
       
    
         <div class="input-group form-group">
-            <span class="input-group-addon">原价</span>
+            <span class="input-group-addon">现价</span>
             <input type="text" name="productprice" id="productprice" class="form-control" value="<?php  echo $item['productprice'];?>" />
             <span class="input-group-addon">元</span>
         </div>
@@ -277,6 +277,20 @@
         </div>
 			    <span class="help-block">物品虚拟出售数，会员下单此数据就增加, 无论是否支付</span>
           
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分商品积分</label>
+    <div class="col-sm-6 col-xs-12">
+
+        <div class="input-group">
+            <input type="text" name="credit2" id="credit2" class="form-control" value="<?php  echo $item['credit2'];?>" />
+            <span class="input-group-addon">分</span>
+        </div>
+        <p class="help-block">会员购物所需要的积分, 如果不填写或填写0，则默认为非积分商品，如果带%则为按成交价格的比例计算积分</p>
+        <p class="help-block">如: 购买2件，设置10 积分, 不管成交价格是多少， 则购买后所需20积分</p>
+        <p class="help-block">如: 购买2件，设置10%积分, 成交价格2 * 200= 400， 则购买后所需 40 积分（400*10%）</p>
+
     </div>
 </div>
 <div class="form-group">
