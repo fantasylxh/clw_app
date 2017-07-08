@@ -30,6 +30,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/user/get-wx-user-info',
         '/order/store',
         '/order/freight',
+        '/order/pay-ok',
         '/order/credit',
         '/order/',
     ];

@@ -173,7 +173,7 @@ class OrderController extends Controller
                 return self::return_err(strval($content['return_msg']));
             }
             $data = $this->pay($content['prepay_id']);
-            $data['credit3']=120;
+            $data['orderid']=$orderid;$data['openid']=$openid;$data['tocken']=csrf_token();
             \DB::table("eshop_order_goods")->insert($products);
             \DB::commit();
             return response()->json(['code'=>200,'status'=>1,'message'=>'提交成功','data'=>$data]);
@@ -182,7 +182,24 @@ class OrderController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
         }
     }
+    /**
+     * 支付回调
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function payOk(Request $request )
+    {
+        if( !$this->checkMember(['openid'=>$request->openid]))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+        if( !$request->orderid)
+            return response()->json(['code'=>200,'status'=>0,'message'=>'orderid不能为空']);
+        if( !$request->tocken)
+            return response()->json(['code'=>200,'status'=>0,'message'=>'tocken不能为空']);
 
+        return response()->json(['code'=>200,'status'=>1,'message'=>'支付成功','data'=>['credit3'=>120]]);
+
+    }
     /**
      * 提交订单
      * @author      lxhui<772932587@qq.com>
