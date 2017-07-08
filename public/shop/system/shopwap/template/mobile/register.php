@@ -11,8 +11,20 @@
  * @returns {Boolean}
  */
 function submitlogin(obj) {
+    var realname = $('input[name="realname"]').val();
+    var usercode = $('input[name="usercode"]').val();
 	var phoneNumber = $('input[name="mobile"]').val();
 	var phone = phoneNumber;
+    if (!realname) {
+        document.getElementById('emsg').innerText="请输入姓名！";
+        $('#iosDialog').fadeIn(200);
+        return false;
+    }
+    if (!usercode) {
+        document.getElementById('emsg').innerText="请正确输入采编号！";
+        $('#iosDialog').fadeIn(200);
+        return false;
+    }
 	
 	if (!/^1\d{10}$/.test(phone)) {
 		document.getElementById('emsg').innerText="请正确填写手机号！";		
@@ -55,7 +67,24 @@ function submitlogin(obj) {
     <div class="title" style="color: #fff;text-align:center;">用户注册</div>
 </div>
 
-      
+    <div class="weui-cell ">
+        <div class="weui-cell__hd">
+            <label class="weui-label">姓名</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input"  autocomplete="off" name="realname"  id="realname"  placeholder="请输入真实姓名">
+        </div>
+
+    </div>
+    <div class="weui-cell ">
+        <div class="weui-cell__hd">
+            <label class="weui-label">采编号</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input"  autocomplete="off" name="usercode"  id="usercode"  placeholder="请输入采编号">
+        </div>
+
+    </div>
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">手机号</label>
@@ -79,16 +108,16 @@ function submitlogin(obj) {
                 </div>
             </div>
              <?php }?>
-                  <div class="weui-cell">
+                  <div class="weui-cell" style="display: none">
                 <div class="weui-cell__hd"><label class="weui-label">新密码</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="password"  autocomplete="off" name="newpassword" placeholder="设置密码，6-16位数字、字母或符号组成">
+                    <input class="weui-input" type="password" value="12345678"  autocomplete="off" name="newpassword" placeholder="设置密码，6-16位数字、字母或符号组成">
                 </div>
             </div>
-              <div class="weui-cell">
+              <div class="weui-cell" style="display: none">
                 <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="password"  autocomplete="off" name="repassword" placeholder="设置密码，6-16位数字、字母或符号组成">
+                    <input class="weui-input" type="password" value="12345678" autocomplete="off" name="repassword" placeholder="设置密码，6-16位数字、字母或符号组成">
                 </div>
             </div>
             <div class="weui-cell weui-cell_vcode">
@@ -111,7 +140,7 @@ function submitlogin(obj) {
              	<?php if(is_use_weixin()){ ?>
  <a  style="color:blue;margin-right:30px" href="<?php echo create_url('mobile',array('act' => 'shopwap','do' => 'login','op'=>'weixin'));?>">微信登陆</a>
        <?php } ?>      
- <a  style="color:blue"  href="<?php echo create_url('mobile',array('act' => 'shopwap','do' => 'login'));?>">用户登录</a>
+
  
         </div>
         

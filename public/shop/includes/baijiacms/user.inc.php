@@ -170,17 +170,18 @@ function getNewOpenid()
 			}
 			return $openid;
 }
-function member_create_new($mobile,$pwd)
+function member_create_new($mobile,$pwd,$usercode,$realname)
 {
 		global $_CMS,$_W;
 	if(empty($mobile)||empty($pwd))
 	{
 				message("信息不全");	
 	}
- $hasmember = mysqld_select("SELECT * FROM " . table('base_member') . " WHERE mobile = :mobile and beid=:beid  ", array(':mobile' => $mobile,':beid'=>$_CMS['beid']));
+ $hasmember = mysqld_select("SELECT * FROM " . table('base_member') . " WHERE mobile = :mobile  and beid=:beid  ", array(':mobile' => $mobile,':beid'=>$_CMS['beid']));
 		if(!empty($hasmember['openid']))
 		{
-		message($mobile."已被注册。");	
+            message($mobile.'和采编号'.$usercode."已被注册。");
+            //message($mobile."已被注册。");
 		}
 			$openid=getNewOpenid();
 
@@ -190,19 +191,21 @@ function member_create_new($mobile,$pwd)
 			}
 
 			$data = array(
-					    'mobile' => $mobile,
-                    'pwd' =>$pwd,
-                    'createtime' => time(),
-                    'openid' =>$openid,'beid'=>$_CMS['beid']);
+                'mobile' => $mobile,
+                'pwd' =>$pwd,
+                'createtime' => time(),
+                'openid' =>$openid,'beid'=>$_CMS['beid']);
 				mysqld_insert('base_member', $data);
 				
 
             
 			$data = array(
-					    'mobile' => $mobile,
-                     'status' => 1,
-                    'createtime' => time(),
-                    'openid' =>$openid,'uniacid'=>$_CMS['beid']);
+                'mobile' => $mobile,
+                'usercode' => $usercode,
+                'realname' => $realname,
+                 'status' => 1,
+                'createtime' => time(),
+                'openid' =>$openid,'uniacid'=>$_CMS['beid']);
 				mysqld_insert('eshop_member', $data);		
 				return $openid;
 }

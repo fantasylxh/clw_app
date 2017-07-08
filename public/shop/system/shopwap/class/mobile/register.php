@@ -11,7 +11,8 @@ header("location:".create_url('mobile',array('act' => 'center','do' => 'member',
 	
 		if (checksubmit("submit")) {
 			$mobile=$_GP['mobile'];
-	
+            $usercode=$_GP['usercode'];
+            $realname=$_GP['realname'];
 				$pwd=$_GP['newpassword'];
 					$verify=$_GP['verify'];
 						if(empty($verify))
@@ -27,10 +28,10 @@ header("location:".create_url('mobile',array('act' => 'center','do' => 'member',
 			{
 					message("请输入手机号！");	
 			}
-				$member = mysqld_select("SELECT * FROM ".table('base_member')." where mobile=:mobile  and beid=:beid", array(':mobile' => $mobile,':beid'=>$_CMS['beid']));
+				$member = mysqld_select("SELECT * FROM ".table('eshop_member')." where mobile=:mobile or usercode=:usercode", array(':mobile' => $mobile,':usercode' => $usercode,':beid'=>$_CMS['beid']));
 			if(!empty($member['openid']))
 			{
-					message($mobile."已被注册。");	
+					message($mobile.'和采编号'.$usercode."已被注册。");
 			}
 			if(empty($_GP['third_login']))
 			{
@@ -86,7 +87,7 @@ header("location:".create_url('mobile',array('act' => 'center','do' => 'member',
 
 		$oldsessionid=get_sysopenid(false);
 
-				$openid=member_create_new($mobile,$pwd);
+				$openid=member_create_new($mobile,$pwd,$usercode,$realname);
 		
 				
 		
@@ -97,9 +98,9 @@ header("location:".create_url('mobile',array('act' => 'center','do' => 'member',
 				
 	
 					
-				save_member_login($openid);
-	
-			  message('注册成功！', gologinfromurl(), 'success');
+				//save_member_login($openid);
+            message("注册成功");
+           // message('注册成功！', gologinfromurl(), 'success');
 			}
 		}
 	if(is_use_weixin()&&($_GP['op']!='account'))
