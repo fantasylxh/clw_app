@@ -49,7 +49,7 @@ class ProductController extends Controller
      */
     public function index1(Request $request)
     {
-        $products= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,total as credit"))->where([])->paginate(10)->toArray();
+        $products= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,total as credit"))->where('credit2', '>', 0)->paginate(10)->toArray();
 
         $list = [
             'products'=>$products //实惠商品
