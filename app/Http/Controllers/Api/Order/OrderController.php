@@ -172,6 +172,7 @@ class OrderController extends Controller
                 return self::return_err(strval($content['return_msg']));
             }
             $data = $this->pay($content['prepay_id']);
+            $data['credit3']=120;
             \DB::table("eshop_order_goods")->insert($products);
             \DB::commit();
             return response()->json(['code'=>200,'status'=>1,'message'=>'提交成功','data'=>$data]);
