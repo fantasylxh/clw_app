@@ -180,7 +180,7 @@ function member_create_new($mobile,$pwd,$usercode,$realname)
  $hasmember = mysqld_select("SELECT * FROM " . table('base_member') . " WHERE mobile = :mobile  and beid=:beid  ", array(':mobile' => $mobile,':beid'=>$_CMS['beid']));
 		if(!empty($hasmember['openid']))
 		{
-            message($mobile.'和采编号'.$usercode."已被注册。");
+            //message($mobile.'和采编号'.$usercode."已被注册。");
             //message($mobile."已被注册。");
 		}
 			$openid=getNewOpenid();
