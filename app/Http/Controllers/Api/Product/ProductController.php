@@ -90,7 +90,7 @@ class ProductController extends Controller
             'thumbnail'=>$thumbnail
         ];
         /* 城里推荐 */
-        $products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,marketprice as product_price,unit"))->where(['isrecommand'=>1])->get()->toArray();
+        $products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,productprice as product_price,marketprice as taobao_price,credit2,unit"))->where(['isrecommand'=>1])->get()->toArray();
 
         $list = [
             'product_info'=>$product_info, //推荐
