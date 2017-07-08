@@ -80,10 +80,12 @@ class ProductController extends Controller
         $product_info =  [
             'product_img'=>env('ATTACHMENT_URL').$model->thumb,
             'product_name'=>$model->title,
-            'product_price'=>$model->marketprice,
+            'taobao_price'=>$model->marketprice,//淘宝价
+            'product_price'=>$model->productprice,
             'unit'=>$model->unit,
             'desc'=>$model->content,
             'stock'=>$model->total,
+            'credit2'=>$model->credit2,
             'express_fee'=>$model->dispatchprice,
             'thumbnail'=>$thumbnail
         ];

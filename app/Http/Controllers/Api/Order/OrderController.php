@@ -50,7 +50,7 @@ class OrderController extends Controller
         if( !$result)
             return response()->json(['code'=>200,'status'=>0,'message'=>'订单商品信息不能为空']);
 
-        $list = ['name'=>'邮政小包裹','fee'=>20];
+        $list = ['name'=>'邮政小包裹','fee'=>0.01];
         $result = ['code'=>200,'status'=>1,'message'=>'订单运费','data'=>$list];
         return response()->json($result);
     }
