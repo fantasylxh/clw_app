@@ -33,6 +33,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function () {
         Route::post('/store', 'OrderController@store');
         Route::post('/', 'OrderController@index');
+        Route::post('/pay-ok', 'OrderController@payOk');
         Route::post('/freight', 'OrderController@freight');
         Route::post('/credit', 'OrderController@credit');
     });
