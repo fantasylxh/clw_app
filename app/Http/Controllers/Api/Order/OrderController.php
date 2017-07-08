@@ -84,7 +84,7 @@ class OrderController extends Controller
                 return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
             $config = $this->config;
-            \Log::info($request->apiParams);
+            \Log::info($request->all());
             $result =json_decode($request->apiParams,true);
             if( !$result['addressInfo'])
                 return response()->json(['code'=>200,'status'=>0,'message'=>'收货地址不能为空']);
