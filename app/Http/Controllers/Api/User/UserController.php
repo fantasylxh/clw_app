@@ -300,11 +300,12 @@ class UserController extends Controller
 
         $data = $request->all();
         try {
-            $model = Member::where(['openid' => $request->openid,'realname'=>$request->realname,'usercode'=>$request->usercode])->first();
+            $model = Member::where(['realname'=>$request->realname,'usercode'=>$request->usercode])->first();
             if($model)
             {
                 $csrf_token = $model->openid.csrf_token();
                 $model->csrf_token =$csrf_token;
+                $model->openid =$request->openid;//采编人员后端注册系统生成的openid不实，需要更新
                 $model->save();
                 return response()->json(['code'=>200,'status'=>1,'message'=>'登录成功','data'=>['csrf_token'=>$csrf_token]]);
             }
