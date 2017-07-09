@@ -38,7 +38,6 @@ class ProductController extends Controller
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'最实惠列表','data'=>$list];
         return response()->json($result);
-
     }
 
     /**
