@@ -65,7 +65,11 @@ class OrderController extends Controller
     {
         if( !$this->checkMember(['openid'=>$request->openid]))
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
-        $list = [ 'credit3'=>12, 'order_count'=> 1 ];
+
+        $count = Order::where(['openid'=>$request->openid])->count();
+        $credit3 = Member::where(['openid'=>$request->openid])->first();
+        $credit3 = $credit3 ? $credit3->credit3 : 0;
+        $list = [ 'credit3'=>$credit3, 'order_count'=> $count ];
         $result = ['code'=>200,'status'=>1,'message'=>'积分订单信息','data'=>$list];
         return response()->json($result);
     }
