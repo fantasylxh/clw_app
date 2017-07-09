@@ -25,9 +25,9 @@ class ProductController extends Controller
         /* 主题旅游 */
         $theme = Article::orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>6])->first()->toArray();
         /* 限时特卖 */
-        $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,marketprice as product_price,unit,total,credit"))->where(['istime'=>1])->get()->toArray();
+        $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,productprice,unit,total,credit"))->where(['istime'=>1])->get()->toArray();
         /* 实惠商品 */
-        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,marketprice as product_price,unit,total,credit"))->where(['isnew'=>1])->get()->toArray();
+        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,productprice,unit,total,credit"))->where(['isnew'=>1])->get()->toArray();
 
         $list = [
             'recommend'=>$recommend, //推荐
