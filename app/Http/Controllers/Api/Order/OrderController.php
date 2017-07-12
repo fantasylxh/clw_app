@@ -112,7 +112,7 @@ class OrderController extends Controller
             $productsFee = 0.0; //支付商品总价
             foreach ($productArray as $val) {
                 $product = Product::find($val['goodsid']);
-                $productsFee += $product->marketprice * $val['total'];
+                $productsFee += $product->productprice * $val['total'];
             }
             // 计算价格
             $shippingFee = 10.0;
@@ -133,7 +133,7 @@ class OrderController extends Controller
             $order_goods = new OrderGoods();
             foreach ($productArray as $val) {
                 $product = Product::find($val['goodsid']);
-                $product=['orderid'=>$orderid,'goodsid'=>$val['goodsid'],'price'=>$product->marketprice,'total'=>$val['total'],'openid'=>$request->openid];
+                $product=['orderid'=>$orderid,'goodsid'=>$val['goodsid'],'price'=>$product->productprice,'total'=>$val['total'],'openid'=>$request->openid];
                 array_push($products, $product);
             }
             /* 生产预订单参数 */
