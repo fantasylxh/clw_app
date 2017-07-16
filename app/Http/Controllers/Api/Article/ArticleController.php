@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Article;
+use App\Models\Vote;
+use App\Models\VoteLog;
 use App\Models\ArticleComment;
 use App\Models\RegionCategory;
 use App\Http\Requests\Interfaces\MemberCheck;
@@ -476,8 +478,10 @@ class ArticleController extends Controller
         $reporter['usercode'] = '2030040506';
         $reporter['job'] = '社区站长';
         /* 我的读者 */
-        $vote_info= Article::orderBy('id','desc')->select(\DB::raw("id ,resp_desc,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->first()->toArray();
-        $vote_info['votes']=32;
+        $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
+        if($vote_info['resp_img'])
+            $vote_info['resp_img'] = env('ATTACHMENT_URL').current(unserialize($vote_info['resp_img']));
+
         $list = [
             'reporter_info'=>$reporter,
             'vote_info'=>$vote_info ,
@@ -502,22 +506,27 @@ class ArticleController extends Controller
             if ($validator->fails()) {
                 $result = ['code'=>200,'status'=>0,'message'=> $validator->errors()->first()];
             }
-            $model = Article::find($request->id);
+            $model = Vote::find($request->id);
             if(!$model)
             {
                 $result = ['code'=>200,'status'=>0,'message'=>'找不到该投票id'];
                 return response()->json($result);
             }
-
             $user_id = $this->checkMember(['openid'=>$request->openid]);
             if(!$user_id)
             {
                 $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
                 return response()->json($result);
             }
-/*            $displayorder = ArticleComment::where(['article_id'=>$request->id])->max('displayorder');
-            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);*/
-            $result = ['code'=>200,'status'=>1,'message'=>'投票成功','data'=>['votes'=>12]];
+            $model = VoteLog::where(['openid'=>$request->openid,'vote_id'=>$request->id])->first();
+            if($model)
+                $result = ['code'=>200,'status'=>0,'message'=>'您已经投过票了'];
+            else
+            {
+                VoteLog::firstOrCreate(['openid' => $request->openid,'vote_id'=>$request->id]);
+                $res = Vote::increment('personnum', 1);
+                $result = ['code'=>200,'status'=>1,'message'=>'投票成功','data'=>['votes'=>Vote::find($request->id)->personnum]];
+            }
         }
         catch (\Exception $e) {
             $result = ['code'=>200,'status'=>0,'message'=>$e->getMessage()];

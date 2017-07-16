@@ -120,78 +120,8 @@
                     
                          </div>
                      </div>
-                     
-                       <h3 class="custom_page_header">分享设置 </h3>
-                        <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
-                    <div class="col-sm-9 col-xs-12">
-                        <input type="text" name="share[title]" class="form-control" value="<?php  echo $activity['sharetitle'];?>" placeholder="如果不填写，系统默认">
-                         </div>
-                     </div>
-                
-                        <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图标</label>
-                    <div class="col-sm-9 col-xs-12">
-                                         <?php  echo tpl_form_field_image('share[pic]', $activity['sharepic']);?>
-                            <div class="help-block">图片建议为正方形，如果不选择，默认为活动缩略图片</div>
-                            
-                             </div>
-                     </div>
-                     
-           
-                       <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
-                    <div class="col-sm-9 col-xs-12">
-                                     <input type="text" name="share[desc]" class="form-control" value="<?php  echo $activity['sharedesc'];?>" placeholder="如果不填写，系统默认">
-                             </div>
-                     </div>
-                           <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">未关注-提示地址</label>
-                    <div class="col-sm-9 col-xs-12">
-                                     <input type="text" name="share[followurl]" class="form-control" value="<?php  echo $activity['followurl'];?>" placeholder="如果不填写，则不显示">
-                             </div>
-                     </div>
-                         <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">未关注-提示图标</label>
-                    <div class="col-sm-9 col-xs-12">
-                    	          <?php  echo tpl_form_field_image('share[followicon]', $activity['followicon']);?>
-                            <div class="help-block">图片建议为正方形</div>
-                              </div>
-                     </div>
-                 
-                
-                     <h3 class="custom_page_header">微信回复设置 </h3>
-                                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
-                    <div class="col-sm-9 col-xs-12">
-                            <input type="text" name="entery_title" class="form-control" value="<?php  echo $activity['entery_title'];?>"  />
-                    
-                         </div>
-                     </div>
-                        <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">关键字</label>
-                    <div class="col-sm-9 col-xs-12">
-                            <input type="text" name="entery_keyword" class="form-control" value="<?php  echo $activity['entery_keyword'];?>"  />
-                    
-                         </div>
-                     </div>
-                   
-                     	        <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">缩略图片</label>
-                    <div class="col-sm-9 col-xs-12">
-                       
-                            <?php  echo tpl_form_field_image('entery_thumb', $activity['entery_thumb']);?>
-                    
-                         </div>
-                     </div>
-                            <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">封面描述</label>
-                    <div class="col-sm-9 col-xs-12">
-                            <input type="text" name="entery_description" class="form-control" value="<?php  echo $activity['entery_description'];?>"  />
-                    
-                         </div>
-                     </div>
-                     
+
+
                           <div class="form-group">
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
                     <div class="col-sm-9 col-xs-12">
