@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Article;
 use App\Models\Product;
+use App\Models\Activity;
+use App\Models\ActivityRecord;
 class IndexController extends Controller
 {
     /**
@@ -27,7 +29,18 @@ class IndexController extends Controller
         $news_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_category "))->where(['article_category'=>1])->get()->toArray();
 
         /* 活动报名 */
-        $active_articles = Article::limit(7)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>4])->get()->toArray();
+        $active_articles = Activity::limit(7)->orderBy('id','desc')->select(\DB::raw(\DB::raw("id,title as article_title,fee,starttime,atlas as img_url,is_online ")))->get()->toArray();
+        if($active_articles)
+        {
+            foreach($active_articles as  &$val)
+            {
+                if($val['img_url'])
+                {
+                    $resp_img = current(unserialize($val['img_url']));
+                    $val['resp_img'] =env('ATTACHMENT_URL').$resp_img ;
+                }
+            }
+        }
 
         /* 社区生活 */
         $life_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_category "))->where(['article_category'=>5])->get()->toArray();
