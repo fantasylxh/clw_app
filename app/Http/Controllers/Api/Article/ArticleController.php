@@ -235,7 +235,7 @@ class ArticleController extends Controller
         if(!$model)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
         $model['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
-
+        $model['avatar'] = 'https://'.$_SERVER['HTTP_HOST'].'/images/avatar.gif';
         /* 相关新闻 */
         $articles = Article::limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->get()->toArray();
         $list = [
