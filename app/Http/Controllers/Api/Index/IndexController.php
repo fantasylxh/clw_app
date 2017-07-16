@@ -70,16 +70,16 @@ class IndexController extends Controller
     public function about(Request $request)
     {
         $about = '<div>
-        <ul style="margin-left:50px;">
-        <li style="height:10px;"></li>
-        <li style="font-size:22px; margin-top:20px;"><b>联系方式</b></li>
-        
-        <li style="font-size:16px; line-height:40px;margin-top:20px;">联系电话：0411-88134439</li>
-        <li style="font-size:16px;  line-height:40px;">邮箱：chengliwang123@163.com</li>
-        <li style="font-size:16px;  line-height:40px;">微信号：chengliwangnews</li>
-        <li style="font-size:16px;  line-height:40px;">微博：城里网微博 </li>
-        <li style="font-size:16px;  line-height:40px;">城里网官方活动QQ群:276544516 </li>
-        </ul></div>';
+        <li style="font-size:22px; margin-top:10px;"><b>城里网2012年正式上线，由省委宣传部批准建设的地方新闻门户网站。立足社区基层，覆盖大连区域，为百姓提供衣食住行吃喝玩乐等各方面的资讯和信息，定期组织活动，丰富社区文化生活。
+
+网站设有《城里新闻》、《城里摄影》、《社区生活》、《专题活动》、《校园部落》《城里影视》等栏目，自上线以来，先后策划并执行了“东北三省百名记者大连行”、“最具中国范儿大连姑娘大赛”、“夏季达沃斯大连之夜”、“千人徒步大会”、“大连好人之最美环卫工人评选”等活动。
+
+ 城里网还涉及影视领域，拍摄了《十年》、《滋味》、《爱本天成》 、《随时受不了》、《地产那些事儿》等微电影，并为金石滩管委会拍摄了《爱情之七种武器》、《也许》等微电影，曾独家承办和深度报道大连金石滩沙滩文化节的分项活动及闭幕式。    
+
+    除参与报道大型赛事活动外，城里网联合各街道政府深入拓展与百姓之间、基层之中的多角度互动，扎根社区，报道民生新闻，展示社区风采。广泛开展“社区欢乐运动节”、“百团大展演”、“社区文化节”、“社区大讲堂”、“爱心帮扶计划”、“社区邻里节”、“情景剧拍摄”、“夏凉晚会”等接地气的活动，深受百姓喜爱。城里网在每个社区建立了记者站，专注报道社区好人好事，传播社会正能量。
+
+    城里网的办网宗旨是群策群力，共同打造美好生活！</b></li>   
+        </div>';
         $result = ['code'=>200,'status'=>1,'message'=>'关于我们','data'=>$about];
         return response()->json($result);
     }
@@ -93,11 +93,16 @@ class IndexController extends Controller
     public function alert(Request $request)
     {
         $about = '<div>
-        <ul style="margin-left:50px;">
-        <li style="height:10px;"></li>
-        <li style="font-size:22px; margin-top:20px;"><b>发稿申明</b></li>
+        <ul style="margin-left:20px;">
+        <li style="font-size:12px;  line-height:20px;">1、本网特约记者发稿，均视为本网稿件，必须注明特约记者名字，版权视为本网和特约记者所有。
 
-        <li style="font-size:16px;  line-height:40px;">城里网特约记者可以发稿城里生活 </li>
+2、本网特约记者发稿要求必须遵守《网络安全法》，稿件为特约记者原创稿件，照片不得带有其他网址或标志。
+
+3、发稿正文格式：
+
+     城里网×月×日讯 （特约记者：×××）**********正文*****************************************************************************************。
+
+4、作为城里网的特约记者，有权力向本网提出促进发展的建议和意见，有义务宣传、关注、支持本网的发展。 </li>
         </ul></div>';
         $result = ['code'=>200,'status'=>1,'message'=>'发稿申明','data'=>$about];
         return response()->json($result);
