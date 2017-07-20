@@ -99,6 +99,7 @@ class ArticleController extends Controller
         $region_name ='全部社区';
         if($category_id)
         {
+            $where['ccate']= $category_id;
             try {
                 $m = RegionCategory::find($category_id);
                 $sub_name = $m->name;
