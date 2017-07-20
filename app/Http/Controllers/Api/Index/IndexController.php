@@ -44,7 +44,7 @@ class IndexController extends Controller
         /* 社区生活 */
         $life_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_category "))->where(['article_category'=>5])->get()->toArray();
         /* 城里推荐 */
-        $recommend_products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,productprice as product_price"))->where(['isindex'=>1,'isrecommand'=>1])->get()->toArray();
+        $recommend_products= Product::limit(4)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,productprice as product_price"))->where(['isindex'=>1,'isrecommand'=>1])->where('credit2', '<=', 0)->get()->toArray();
         /* 旅游专题 */
         //$tour_articles = Activity::limit(7)->orderBy('id','desc')->select(\DB::raw(\DB::raw("id,title as article_title,fee,starttime,atlas as img_url,is_online ")))->get()->toArray();
 
