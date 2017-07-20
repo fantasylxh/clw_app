@@ -19,15 +19,15 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         /* 最实惠 */
-        $recommend= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img"))->where(['ishot'=>1,'isrecommand'=>1])->first()->toArray();
+        $recommend= Product::orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img"))->where(['ishot'=>1,'isrecommand'=>1])->where('credit2', '<=', 0)->first()->toArray();
         /* 最实惠 */
-        $bool= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,productprice as product_price,unit,total,credit"))->where(['isdiscount'=>1])->get()->toArray();
+        $bool= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,productprice as product_price,unit,total,credit"))->where(['isdiscount'=>1])->where('credit2', '<=', 0)->get()->toArray();
         /* 主题旅游 */
         $theme = Article::orderBy('id','desc')->select(\DB::raw("id,article_linkurl,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>6])->first()->toArray();
         /* 限时特卖 */
-        $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,productprice as product_price,unit,total,credit"))->where(['istime'=>1])->get()->toArray();
+        $sale= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb) as product_img,productprice as product_price,unit,total,credit"))->where(['istime'=>1])->where('credit2', '<=', 0)->get()->toArray();
         /* 实惠商品 */
-        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,productprice as product_price,unit,total,credit"))->where(['isnew'=>1])->get()->toArray();
+        $products= Product::limit(2)->orderBy('id','desc')->select(\DB::raw("id as product_id,title as product_name,CONCAT('".env('ATTACHMENT_URL')."',thumb)  as product_img,productprice as product_price,unit,total,credit"))->where(['isnew'=>1])->where('credit2', '<=', 0)->get()->toArray();
 
         $list = [
             'recommend'=>$recommend, //推荐

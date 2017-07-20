@@ -22,7 +22,7 @@ trait MemberCheck
     public function checkMember(array $params)
     {
         $model = Member::where(['openid'=>$params['openid']])->first();
-        return $model ? $model->id : false;
+        return $model ? $model : false;
     }
 
 }

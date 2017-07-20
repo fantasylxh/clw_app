@@ -110,13 +110,20 @@ class OrderController extends Controller
             $products = [];
             $orderProducts = [];
             $productsFee = 0.0; //支付商品总价
+            $productsCredit = 0; //支付商品积分
             foreach ($productArray as $val) {
                 $product = Product::find($val['goodsid']);
                 $productsFee += $product->productprice * $val['total'];
+                $productsCredit += $product->credit2 * $val['total']; //所需总积分
+            }
+            if($productsCredit)
+            {
+                if($this->checkMember(['openid'=>$request->openid])->credit1<$productsCredit);
+                    return response()->json(['code'=>200,'status'=>0,'message'=>'您的积分不足!']);
             }
             // 计算价格
             $shippingFee = 10.0;
-            $totalFee = $productsFee + $shippingFee;
+            $totalFee = $productsCredit> 0 ? $shippingFee : $productsFee + $shippingFee;
             // 创建订单
             $ordersn = self::trade_no();
             $order = new Order();
