@@ -119,7 +119,7 @@ class OrderController extends Controller
             if($productsCredit)
             {
                 if($this->checkMember(['openid'=>$request->openid])->credit1<$productsCredit);
-                    return response()->json(['code'=>200,'status'=>0,'message'=>'您的积分不足!']);
+                    return response()->json(['code'=>200,'status'=>0,'message'=>'您的积分不足哦!']);
             }
             // 计算价格
             $shippingFee = 10.0;
