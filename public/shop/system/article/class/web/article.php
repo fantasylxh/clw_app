@@ -4,6 +4,21 @@ if (!defined('IN_IA')) {
 }
 global $_W, $_GPC;
 
+$sql      = 'SELECT * FROM ' . tablename('eshop_categorys') . ' WHERE `uniacid` = :uniacid ORDER BY `parentid`, `displayorder` DESC';
+$category = pdo_fetchall($sql, array(
+    ':uniacid' => $_W['uniacid']
+), 'id');
+$parent   = $children = array();
+if (!empty($category)) {
+    foreach ($category as $cid => $cate) {
+        if (!empty($cate['parentid'])) {
+            $children[$cate['parentid']][] = $cate;
+        } else {
+            $parent[$cate['id']] = $cate;
+        }
+    }
+}
+
 $operation = !empty($_GPC['op']) ? $_GPC['op'] : 'display';
 if ($operation == 'display') {
  
@@ -37,6 +52,8 @@ if ($operation == 'display') {
         $article = array(
             'uniacid' => $_W['uniacid'],
             'article_title' => trim($_GPC['article_title']),
+            'pcate' => intval($_GPC['category']['parentid']),
+            'ccate' => intval($_GPC['category']['childid']),
                 'article_category' => intval($_GPC['article_category']),
                     'article_mp' => trim($_GPC['article_mp']),
                         'article_author' => trim($_GPC['article_author']),

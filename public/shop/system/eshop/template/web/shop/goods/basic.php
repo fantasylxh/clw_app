@@ -20,7 +20,7 @@
     <div class="col-sm-8 col-xs-12">
      
          
-            <?php  echo tpl_form_field_category_2level('category', $parent, $children, $item['pcate'], $item['ccate'])?>
+  <?php  echo tpl_form_field_category_2level('category', $parent, $children, $item['pcate'], $item['ccate'])?>
          
     </div>
 </div>

@@ -89,7 +89,7 @@ function tpl_form_field_category_2level($name, $parents, $children, $parentid, $
 			$html .=
 				'
 			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-				<select class="form-control tpl-category-parent" id="' . $name . '_parent" name="' . $name . '[parentid]" onchange="renderCategory(this,\'' . $name . '\')">
+				<select class="form-control tpl-category-parent" id="' . $name . '_parent" name="' . $name . '[parentid]" onchange="renderCategory(this,\'' . $name . '\')" >
 					<option value="0">请选择一级分类</option>';
 			$ops = '';
 			foreach ($parents as $row) {
@@ -99,8 +99,8 @@ function tpl_form_field_category_2level($name, $parents, $children, $parentid, $
 			$html .= '
 				</select>
 			</div>
-			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-				<select class="form-control tpl-category-child" id="' . $name . '_child" name="' . $name . '[childid]">
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="padding-left: 80px">
+				<select class="form-control tpl-category-child" id="' . $name . '_child" name="' . $name . '[childid]"  style="width: 150px">
 					<option value="0">请选择二级分类</option>';
 			if (!empty($parentid) && !empty($children[$parentid])) {
 				foreach ($children[$parentid] as $row) {
