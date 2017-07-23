@@ -216,7 +216,7 @@
  <label class="col-xs-12 col-sm-3 col-md-2 control-label">采编号</label>
 
 	<div class="col-sm-9 col-xs-12">
-		<input type="text" name="article_linkurl" class="form-control" value="<?php  echo $article['article_linkurl'];?>" placeholder="阅读全文链接，如果不填写则不显示阅读全文">
+		<input type="text" name="usercode" class="form-control" value="<?php  echo $article['usercode'];?>" placeholder="采编号">
 	</div>
 </div>
 

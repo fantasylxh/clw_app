@@ -168,7 +168,7 @@ class ArticleController extends Controller
      */
     public function index_4(Request $request)
     {
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where([])->paginate(10)->toArray();
+        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>9])->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
@@ -449,13 +449,12 @@ class ArticleController extends Controller
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
-        $reporter = Article::select(\DB::raw("id,article_author as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content "))->find($id)->toArray();
+        $reporter = Article::select(\DB::raw("id,reporter as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
-        $reporter['usercode'] = '2030040506';
-        $reporter['job'] = '社区站长';
         /* 我的读者 */
-        $vote_info= Article::orderBy('id','desc')->select(\DB::raw("id ,resp_desc,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->first()->toArray();
-        $vote_info['votes']=12;
+        $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
+        if($vote_info['resp_img'])
+            $vote_info['resp_img'] = env('ATTACHMENT_URL').current(unserialize($vote_info['resp_img']));
         /* 社区生活/ */
         $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>10])->get()->toArray();
 
@@ -480,10 +479,8 @@ class ArticleController extends Controller
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
-        $reporter = Article::select(\DB::raw("id,article_author as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content "))->find($id)->toArray();
+        $reporter = Article::select(\DB::raw("id,reporter as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
-        $reporter['usercode'] = '2030040506';
-        $reporter['job'] = '社区站长';
         /* 我的读者 */
         $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
         if($vote_info['resp_img'])
