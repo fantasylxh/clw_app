@@ -71,18 +71,13 @@ class IndexController extends Controller
      */
     public function about(Request $request)
     {
-        $about = '<h2 class="tit-b" style="margin: 0px; padding: 0px; font-size: 26px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
-    关于我们
-</h2>
+        $about = '
 <div class="block" style="padding: 20px 0px 10px; margin: 0px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);">
     <h4 class="tit-m" style="margin: 20px 0px 0px; padding: 0px; font-size: 20px; color: rgb(255, 102, 0); font-weight: normal; line-height: 2;">
         关于城里网
     </h4>
     <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
         城里网2012年正式上线，由省委宣传部批准建设的地方新闻门户网站。立足社区基层，覆盖大连区域，为百姓提供衣食住行吃喝玩乐等各方面的资讯和信息，定期组织活动，丰富社区文化生活。
-    </p>
-    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
-        创业邦为创业者提供高价值的资讯与服务，推动中国创新创业。旗下拥有传媒互动、创业孵化、融资服务等业务
     </p>
 </div>
 <div class="block" style="padding: 20px 0px 10px; margin: 0px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);">
