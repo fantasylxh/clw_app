@@ -162,7 +162,7 @@
                     <label class="col-xs-12 col-sm-3 col-md-2 control-label">文章标题</label>
                     <div class="col-sm-9 col-xs-12">
                       
-               	<input type="text" name="article_title" class="form-control" value="<?php  echo $article['article_title'];?>" data-rule-required='true' bind-in="art_title" />
+               	<input type="text" name="article_title" class="form-control" value="<?php  echo $article['article_title'];?>" data-rule-required='true' bind-in="art_title" placeholder="标题或姓名"/>
 	
                       
                     </div>
