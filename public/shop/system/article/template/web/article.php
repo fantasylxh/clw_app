@@ -213,7 +213,7 @@
 
 
 <div class="form-group">
- <label class="col-xs-12 col-sm-3 col-md-2 control-label">全文链接</label>
+ <label class="col-xs-12 col-sm-3 col-md-2 control-label">采编号</label>
 
 	<div class="col-sm-9 col-xs-12">
 		<input type="text" name="article_linkurl" class="form-control" value="<?php  echo $article['article_linkurl'];?>" placeholder="阅读全文链接，如果不填写则不显示阅读全文">
@@ -234,7 +234,19 @@
 
 </div>
 
+ <div class="form-group">
+                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">所在社区</label>
 
+                            <div class="col-sm-3">
+
+                                <input type="text" name="region" class="form-control" value="<?php  echo $article['region'];?>" placeholder="所在社区" >
+                            </div>
+                            <label class="col-sm-2 control-label">社区职务</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="region_v" class="form-control" value="<?php  echo $article['region_v'];?>" placeholder="社区职务">
+                            </div>
+
+                        </div>
 
 <div class="form-group">
 
