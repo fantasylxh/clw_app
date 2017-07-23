@@ -66,7 +66,7 @@ if ($operation == 'display') {
             'displayorder' => intval($_GPC['displayorder']),
                'resp_desc' => trim($_GPC['resp_desc']),
                   'resp_img' => trim($_GPC['resp_img']),
-            'user_code' => trim($_GPC['user_code']),
+            'usercode' => trim($_GPC['usercode']),
             'region' => trim($_GPC['region']),
             'region_v' => trim($_GPC['region_v']),
         );
