@@ -194,7 +194,7 @@ class ArticleController extends Controller
             $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
             return response()->json($result);
         }
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where([])->paginate(10)->toArray();
+        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['openid'=>$request->openid])->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
