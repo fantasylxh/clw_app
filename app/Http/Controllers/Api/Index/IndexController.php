@@ -71,18 +71,36 @@ class IndexController extends Controller
      */
     public function about(Request $request)
     {
-        $about = '<div>
-        <li style="font-size:12px; margin-top:10px;">
+        $about = '<h2 class="tit-b" style="margin: 0px; padding: 0px; font-size: 26px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+    关于我们
+</h2>
+<div class="block" style="padding: 20px 0px 10px; margin: 0px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);">
+    <h4 class="tit-m" style="margin: 20px 0px 0px; padding: 0px; font-size: 20px; color: rgb(255, 102, 0); font-weight: normal; line-height: 2;">
+        关于城里网
+    </h4>
+    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
         城里网2012年正式上线，由省委宣传部批准建设的地方新闻门户网站。立足社区基层，覆盖大连区域，为百姓提供衣食住行吃喝玩乐等各方面的资讯和信息，定期组织活动，丰富社区文化生活。
-
-网站设有《城里新闻》、《城里摄影》、《社区生活》、《专题活动》、《校园部落》《城里影视》等栏目，自上线以来，先后策划并执行了“东北三省百名记者大连行”、“最具中国范儿大连姑娘大赛”、“夏季达沃斯大连之夜”、“千人徒步大会”、“大连好人之最美环卫工人评选”等活动。
-
- 城里网还涉及影视领域，拍摄了《十年》、《滋味》、《爱本天成》 、《随时受不了》、《地产那些事儿》等微电影，并为金石滩管委会拍摄了《爱情之七种武器》、《也许》等微电影，曾独家承办和深度报道大连金石滩沙滩文化节的分项活动及闭幕式。    
-
-    除参与报道大型赛事活动外，城里网联合各街道政府深入拓展与百姓之间、基层之中的多角度互动，扎根社区，报道民生新闻，展示社区风采。广泛开展“社区欢乐运动节”、“百团大展演”、“社区文化节”、“社区大讲堂”、“爱心帮扶计划”、“社区邻里节”、“情景剧拍摄”、“夏凉晚会”等接地气的活动，深受百姓喜爱。城里网在每个社区建立了记者站，专注报道社区好人好事，传播社会正能量。
-
-    城里网的办网宗旨是群策群力，共同打造美好生活！</li>   
-        </div>';
+    </p>
+    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
+        创业邦为创业者提供高价值的资讯与服务，推动中国创新创业。旗下拥有传媒互动、创业孵化、融资服务等业务
+    </p>
+</div>
+<div class="block" style="padding: 20px 0px 10px; margin: 0px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);">
+    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
+        网站设有《城里新闻》、《城里摄影》、《社区生活》、《专题活动》、《校园部落》《城里影视》等栏目，自上线以来，先后策划并执行了“东北三省百名记者大连行”、“最具中国范儿大连姑娘大赛”、“夏季达沃斯大连之夜”、“千人徒步大会”、“大连好人之最美环卫工人评选”等活动。。
+    </p>
+</div>
+<div class="block" style="padding: 20px 0px 10px; margin: 0px; font-family: &quot;Open Sans&quot;, Arial, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, STHeiti, &quot;WenQuanYi Micro Hei&quot;, SimSun, sans-serif, sans-serif; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);">
+    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
+        城里网还涉及影视领域，拍摄了《十年》、《滋味》、《爱本天成》 、《随时受不了》、《地产那些事儿》等微电影，并为金石滩管委会拍摄了《爱情之七种武器》、《也许》等微电影，曾独家承办和深度报道大连金石滩沙滩文化节的分项活动及闭幕式。
+    </p>
+    <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 2; color: rgb(102, 102, 102);">
+        除参与报道大型赛事活动外，城里网联合各街道政府深入拓展与百姓之间、基层之中的多角度互动，扎根社区，报道民生新闻，展示社区风采。广泛开展“社区欢乐运动节”、“百团大展演”、“社区文化节”、“社区大讲堂”、“爱心帮扶计划”、“社区邻里节”、“情景剧拍摄”、“夏凉晚会”等接地气的活动，深受百姓喜爱。城里网在每个社区建立了记者站，专注报道社区好人好事，传播社会正能量。<br/>城里网的办网宗旨是群策群力，共同打造美好生活！
+    </p>
+</div>
+<p>
+    <br/>
+</p>';
         $result = ['code'=>200,'status'=>1,'message'=>'关于我们','data'=>$about];
         return response()->json($result);
     }
