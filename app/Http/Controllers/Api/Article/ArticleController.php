@@ -387,8 +387,8 @@ class ArticleController extends Controller
         foreach($comments['data'] as &$val)
         {
             $member = Member::find($val['member_id']);
-            $val['avatar'] = $member->avatar;
-            $val['nickname'] = $member->nickname;
+            $val['avatar'] = isset($member->avatar) ? $member->avatar : '';
+            $val['nickname'] = isset($member->nickname) ? $member->nickname : '';
             $val['displayorder'] = $val['displayorder'].'楼';
             unset($val['member_id']);
         }
