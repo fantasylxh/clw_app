@@ -449,7 +449,7 @@ class ArticleController extends Controller
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
-        $reporter = Article::select(\DB::raw("id,reporter as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
+        $reporter = Article::select(\DB::raw("id,article_author as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
         /* 我的读者 */
         $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
