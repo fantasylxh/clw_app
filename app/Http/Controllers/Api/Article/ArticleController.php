@@ -428,7 +428,7 @@ class ArticleController extends Controller
                 return response()->json($result);
             }
             $displayorder = ArticleComment::where(['article_id'=>$request->id])->max('displayorder');
-            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);
+            ArticleComment::firstOrCreate(['openid' => $request->openid,'member_id' => $user_id->id,'content' => $request->content,'displayorder' => $displayorder+1,'article_id'=>$request->id]);
             $result = ['code'=>200,'status'=>1,'message'=>'留言成功'];
         }
         catch (\Exception $e) {
