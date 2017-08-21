@@ -104,7 +104,7 @@ class ArticleController extends Controller
                 $m = RegionCategory::find($category_id);
                 $sub_name = $m->name;
                 $region_name = RegionCategory::find($m->parentid)->name;
-                $where=['category_id'=>$category_id];
+                $where=['ccate'=>$category_id];
                 $location = [$region_name,$sub_name];
                 $current_position =array_combine($postion,$location);
             }
