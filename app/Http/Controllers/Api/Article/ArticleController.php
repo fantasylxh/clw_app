@@ -125,7 +125,7 @@ class ArticleController extends Controller
         $banner_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($banner_where)->get()->toArray();//幻灯片
         $bannerArr = array_column($banner_articles, 'id');
         /* 社区新闻/幻灯片下 */
-        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[5])->whereNotIn('id',$bannerArr)->get()->toArray();
+        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[10])->whereNotIn('id',$bannerArr)->get()->toArray();
         $idArr = array_column($articles, 'id');
         /* 社区优秀团队 */
         $cloud_where = array_merge($where,['article_category'=>4]);
