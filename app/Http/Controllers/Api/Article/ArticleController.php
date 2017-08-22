@@ -123,9 +123,9 @@ class ArticleController extends Controller
         /* 轮播图 */
         $banner_where = array_merge($where,['article_category'=>5]);
         $banner_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($banner_where)->get()->toArray();//幻灯片
-
+        $bannerArr = array_column($banner_articles, 'id');
         /* 社区新闻/幻灯片下 */
-        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[1,5])->get()->toArray();
+        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[5])->whereNotIn('id',$bannerArr)->get()->toArray();
         $idArr = array_column($articles, 'id');
         /* 社区名人 */
         $cloud_where = array_merge($where,['article_category'=>9]);
@@ -133,7 +133,7 @@ class ArticleController extends Controller
         /* 社区新闻/社区风云榜下 */
         $next_articles = Article::limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[1,5])->whereNotIn('id',$idArr)->get()->toArray();
         $idArr2 = array_column($next_articles, 'id');
-        /* 优秀采编 */
+        /* 优秀特约记者*/
         $collect_where = array_merge($where,['article_category'=>10]);
         $collect_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,resp_desc, CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($collect_where)->get()->toArray();
 
