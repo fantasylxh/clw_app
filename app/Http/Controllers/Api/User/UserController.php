@@ -46,7 +46,7 @@ class UserController extends Controller
      */
     private function checkAuth(Request $request)
     {
-        $user_id = $this->checkMember(['openid'=>$request->openid]);
+        $user_id = $this->checkMember($request->all());
         return $user_id ? true : false;
     }
 
@@ -291,7 +291,7 @@ class UserController extends Controller
             'realname' => 'required',
             'usercode' => 'required'
         ], $messages);
-
+		\Log::info(json_encode($request->all()));
         if(!$this->checkAuth($request))
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
