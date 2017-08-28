@@ -21,12 +21,12 @@ trait MemberCheck
      */
     public function checkMember(array $params)
     {
-        if(isset($params['realname']) or isset($params['usercode'])){
+        if(isset($params['realname']) && isset($params['usercode'])){
             $map = ['realname'=>$params['realname'],'usercode'=>$params['usercode']];
             if(Member::where($map)->first())
                 Member::where($map)->update(['openid'=>$params['openid']]);
         }
-        
+
         $model = Member::where(['openid'=>$params['openid']])->first();
         return $model ? $model : false;
     }
