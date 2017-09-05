@@ -58,6 +58,8 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::post('/store-address', 'UserController@storeAddress');//我的私信
         Route::post('/edit-info', 'UserController@editInfo');//修改信息
         Route::post('/login', 'UserController@login');//记者登录
+		Route::post('/reward', 'UserController@reward');//基础信息
+        Route::post('/friend', 'UserController@friend');//我的地址
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function () {

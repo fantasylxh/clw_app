@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\ShopNotice;
 use App\Models\MemberAddress;
 use Iwanli\Wxxcx\Wxxcx;
+use App\Models\Article;
 use App\Http\Requests\Interfaces\MemberCheck;
 class UserController extends Controller
 {
@@ -227,6 +228,52 @@ class UserController extends Controller
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'收货地址列表','data'=>$list];
         return response()->json($result);
+    }
+
+    /**
+     * 我的分享队友
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function friend(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+        /* 轮播图 */
+        $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title as nickname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as avatar,article_date_v as create_at "))->where(['article_category'=>7])->paginate(10)->toArray();
+
+        unset($banner_articles['from'],$banner_articles['to']);
+
+        $list = [
+            'friends'=>$banner_articles,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'分享队友列表','data'=>$list];
+        return response()->json($result);
+
+    }
+
+    /**
+     * 宣传奖励
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function reward(Request $request)
+    {
+        if(!$this->checkAuth($request))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+        /* 轮播图 */
+        $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title as nickname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as avatar,12 as credit"))->where(['article_category'=>7])->paginate(10)->toArray();
+
+        unset($banner_articles['from'],$banner_articles['to']);
+
+        $list = [
+            'rewards'=>$banner_articles,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'宣传奖励列表','data'=>$list];
+        return response()->json($result);
+
     }
 
     /**
