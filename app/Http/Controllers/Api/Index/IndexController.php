@@ -124,4 +124,15 @@ class IndexController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     *  扫码
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function qrcode(Request $request)
+    {
+
+    }
+
 }
