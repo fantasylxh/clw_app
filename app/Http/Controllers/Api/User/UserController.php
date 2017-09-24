@@ -123,7 +123,9 @@ class UserController extends Controller
         if(!$this->checkAuth($request))
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
-        $model =Member::select(['avatar','nickname','gender','province','city','area','street','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
+        $model =Member::select(['id','avatar','nickname','gender','province','city','area','street','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
+
+        \QrCode::format('png')->size(300)->generate('http://baidu.com',public_path('qrcodes/qrcode_'.$model->id.'.png'));
 		$model->qrcode='https://users.chengliwang.com/images/qr.png';
         //$model->createtime = date('Y-m-d H:i:s',$model->createtime);
 
