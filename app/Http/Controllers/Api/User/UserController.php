@@ -348,9 +348,11 @@ class UserController extends Controller
 
         $data = $request->all();
         try {
-            $model = Member::updateOrCreate( ['openid' => $data['openid']],$data);
+            //$model = Member::updateOrCreate( ['openid' => $data['openid']],$data);
+            $model =true;
+            \Log::info(json_encode($data));
             if($model)
-                return response()->json(['code'=>200,'status'=>1,'message'=>'绑定成功']);
+                return response()->json(['code'=>200,'status'=>1,'message'=>'绑定成功'.json_encode($data)]);
             else
                 return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
         }
