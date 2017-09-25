@@ -132,6 +132,15 @@ class IndexController extends Controller
      */
     public function qrcode(Request $request)
     {
+        $id = $request->id;
+        try {
+
+            $result = ['code'=>200,'status'=>1,'message'=>'二维码链接','data'=>\Request::server('HTTP_HOST').'/qrcode/'.$id];
+        }
+        catch (\Exception $e) {
+            $result = ['code'=>200,'status'=>0,'message'=>'找不到该链接','data'=>null];
+        }
+        return response()->json($result);
 
     }
 

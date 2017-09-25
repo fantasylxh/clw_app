@@ -5,7 +5,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/', 'IndexController@index');
         Route::get('/about', 'IndexController@about');
         Route::get('/alert', 'IndexController@alert');
-        Route::get('/qrcode', 'IndexController@qrcode');
+        Route::get('/qrcode/{id}', 'IndexController@qrcode');
     });
     Route::group(['prefix' => 'article', 'namespace' => 'Article'], function () {
         Route::get('/', 'ArticleController@index'); #文章

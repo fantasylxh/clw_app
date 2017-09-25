@@ -124,7 +124,7 @@ class UserController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
         $model =Member::select(['id','avatar','nickname','gender','province','city','area','street','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
-        \QrCode::format('png')->size(300)->generate(\Request::server('HTTP_HOST').'/qrcode',public_path('qrcodes/qrcode_'.$model->id.'.png'));
+        \QrCode::format('png')->size(300)->generate(\Request::server('HTTP_HOST').'/qrcode/'.$model->id,public_path('qrcodes/qrcode_'.$model->id.'.png'));
 		$model->qrcode=\Request::server('HTTP_HOST').'/qrcodes/qrcode_'.$model->id.'.png';
         //$model->createtime = date('Y-m-d H:i:s',$model->createtime);
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$model];
@@ -323,7 +323,42 @@ class UserController extends Controller
         }
     }
 
+    /**
+     *  小程序客户端扫码回调接口
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bind(Request $request)
+    {
+        $messages = array(
+            'uid.required' => '上级uid不能为空',
+            'openid.required' => 'openid不能为空',
+            'nickname.required' => 'nickname不能为空',
+            'openid.unique' => 'openid已注册',
+            'avatar.required' => 'avatar微信图像不能为空',
+        );
+        $validator = \Validator::make($request->all(), [
+            'uid' => 'required',
+            'openid' => 'required',
+            'nickname' => 'required',
+            'avatar' => 'required'
+        ], $messages);
+        if ($validator->fails())
+            return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
 
+        $data = $request->all();
+        try {
+            $model = Member::updateOrCreate( ['openid' => $data['openid']],$data);
+            if($model)
+                return response()->json(['code'=>200,'status'=>1,'message'=>'绑定成功']);
+            else
+                return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
+        }
+        catch (\Exception $e) {
+            return response()->json(['code'=>200,'status'=>0,'message'=>$e->getMessage()]);
+        }
+
+    }
 
     /**
      *  记者登录
