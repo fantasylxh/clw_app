@@ -124,7 +124,7 @@ class UserController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
 
         $model =Member::select(['id','avatar','nickname','gender','province','city','area','street','createtime','createtime as usercode'])->where(['openid'=>$request->openid])->first();
-        \QrCode::format('png')->size(300)->generate('https://'. \Request::server('HTTP_HOST').'/qrcode/'.$model->id.'/',public_path('qrcodes/qrcode_'.$model->id.'.png'));
+        \QrCode::format('png')->size(300)->generate('https://'. \Request::server('HTTP_HOST').'/qrcode/'.$model->id,public_path('qrcodes/qrcode_'.$model->id.'.png'));
 		$model->qrcode='https://'. \Request::server('HTTP_HOST').'/qrcodes/qrcode_'.$model->id.'.png';
         //$model->createtime = date('Y-m-d H:i:s',$model->createtime);
         $result = ['code'=>200,'status'=>1,'message'=>'个人中心','data'=>$model];
