@@ -240,7 +240,7 @@ class ArticleController extends Controller
      */
     public function detail($id)
     {
-        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v'])->find($id)->toArray();
+        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','article_readnum_v'])->find($id)->toArray();
         if(!$model)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
         $model['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
@@ -445,9 +445,13 @@ class ArticleController extends Controller
      */
     public function reporter($id)
     {
-        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v'])->find($id)->toArray();
+        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','usercode','openid'])->find($id)->toArray();
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
+        if(!$model['openid']){
+            $umodel = Member::where(['usercode'=>$model['usercode']])->first();
+            Article::where('id', $id)->update(['openid' => $umodel['openid']]);
+        }
 
         $reporter = Article::select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
@@ -455,8 +459,8 @@ class ArticleController extends Controller
         $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
         if($vote_info['resp_img'])
             $vote_info['resp_img'] = env('ATTACHMENT_URL').current(unserialize($vote_info['resp_img']));
-        /* 社区生活/ */
-        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>10])->get()->toArray();
+        /* 我的稿件/ */
+        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['openid'=>$umodel['openid']])->get()->toArray();
 
         $list = [
             'reporter_info'=>$reporter,
@@ -475,11 +479,11 @@ class ArticleController extends Controller
      */
     public function personal($id)
     {
-        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v'])->find($id)->toArray();
+        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','article_readnum_v'])->find($id)->toArray();
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
-        $reporter = Article::select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img,usercode,region) as resp_img,article_content,usercode,region_v as job,region"))->find($id)->toArray();
+        $reporter = Article::select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img,usercode,region) as resp_img,article_content,usercode,region_v as job,region,article_readnum_v"))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
         /* 我的读者 */
         $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
