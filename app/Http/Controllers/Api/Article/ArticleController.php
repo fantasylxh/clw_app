@@ -283,8 +283,8 @@ class ArticleController extends Controller
         ], $messages);
         $validator->after(function($validator) use ($data) {
             $csrf_token= Member::where(['openid'=> $data['openid']])->first()->csrf_token;
-            if ($csrf_token!=$data['csrf_token'])
-                $validator->errors()->add('', 'csrf_token 无效');
+//            if ($csrf_token!=$data['csrf_token'])
+//                $validator->errors()->add('', 'csrf_token 无效');
         });
 
         if ($validator->fails())
