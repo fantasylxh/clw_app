@@ -48,7 +48,7 @@ class UserController extends Controller
     private function checkAuth(Request $request)
     {
         $user_id = $this->checkMember($request->all());
-        return $user_id ? true : false;
+        return $user_id ? $user_id : false;
     }
 
     /**
@@ -242,13 +242,12 @@ class UserController extends Controller
     {
         if(!$this->checkAuth($request))
             return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
-        /* 轮播图 */
-        $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title as nickname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as avatar,article_date_v as create_at "))->where(['article_category'=>7])->paginate(10)->toArray();
 
-        unset($banner_articles['from'],$banner_articles['to']);
-
+        /* 好友 */
+        $friends = Member::limit(6)->orderBy('id','desc')->select(\DB::raw("id,nickname,avatar,from_unixtime(createtime,'%Y-%m-%d') as create_at "))->where(['parent_uid'=>$this->checkAuth($request)->id])->paginate(10)->toArray();
+        unset($friends['from'],$friends['to']);
         $list = [
-            'friends'=>$banner_articles,
+            'friends'=>$friends,
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'分享队友列表','data'=>$list];
         return response()->json($result);
@@ -347,12 +346,17 @@ class UserController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
 
         $data = $request->all();
+        /* 禁止自己扫码自己 */
+        if(Member::where(['openid'=>$request->openid])->first()->openid==$data['openid'])
+            return response()->json(['code'=>200,'status'=>0,'message'=>'绑定自己失败']);
+   
         try {
-            //$model = Member::updateOrCreate( ['openid' => $data['openid']],$data);
-            $model =true;
+            $model = Member::updateOrCreate( ['openid' => $data['openid']],['openid'=>$data['openid'],'nicknamex'=>$data['nickname'],'avatar'=>$data['avatar'],'parent_uid'=>$data['uid']]);
             \Log::info(json_encode($data));
-            if($model)
-                return response()->json(['code'=>200,'status'=>1,'message'=>'绑定成功'.json_encode($data)]);
+            if($model){
+                //Member::where('uid',$data['uid'])->update(['parent_uid' => $data['uid']]);
+                return response()->json(['code'=>200,'status'=>1,'message'=>'绑定成功']);
+            }
             else
                 return response()->json(['code'=>200,'status'=>0,'message'=>$validator->errors()->first()]);
         }

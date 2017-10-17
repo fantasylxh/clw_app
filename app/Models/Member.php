@@ -21,6 +21,7 @@ class Member extends Model
         'level',
         'agentid',
         'openid',
+        'parent_uid',
         'realname',
         'mobile',
         'weixin',
