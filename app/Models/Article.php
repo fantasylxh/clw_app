@@ -16,6 +16,17 @@ class Article extends Model
      */
     protected $table = 'eshop_article';
     public $timestamps = false;
+
+    /**
+     * 只包含激活文章的查询作用域
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('article_state', 1);
+    }
+
     /**
      * 获取文章的评论
      */

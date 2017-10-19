@@ -25,9 +25,9 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         /* 轮播图 */
-        $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->get()->toArray();
+        $banner_articles = Article::active()->limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->get()->toArray();
         $idArr = array_column($banner_articles, 'id');
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->whereNotIn('id',$idArr)->paginate(10)->toArray();
+        $articles = Article::active()->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>1])->whereNotIn('id',$idArr)->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
@@ -48,9 +48,9 @@ class ArticleController extends Controller
     public function index_1(Request $request)
     {
         /* 轮播图 */
-        $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>7])->get()->toArray();
+        $banner_articles = Article::active()->limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>7])->get()->toArray();
 
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>7])->paginate(10)->toArray();
+        $articles = Article::active()->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>7])->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
@@ -71,9 +71,9 @@ class ArticleController extends Controller
     public function index_2(Request $request)
     {
         /* 轮播图 */
-        $banner_articles = Article::limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->get()->toArray();
+        $banner_articles = Article::active()->limit(6)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->get()->toArray();
 
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->paginate(10)->toArray();
+        $articles = Article::active()->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
@@ -122,23 +122,23 @@ class ArticleController extends Controller
 
         /* 轮播图 */
         $banner_where = array_merge($where,['article_category'=>5]);
-        $banner_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($banner_where)->get()->toArray();//幻灯片
+        $banner_articles = Article::active()->limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($banner_where)->get()->toArray();//幻灯片
         $bannerArr = array_column($banner_articles, 'id');
         /* 社区新闻/幻灯片下 */
-        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[10])->whereNotIn('id',$bannerArr)->get()->toArray();
+        $articles = Article::active()->limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[10])->whereNotIn('id',$bannerArr)->get()->toArray();
         $idArr = array_column($articles, 'id');
         /* 社区优秀团队 */
         $cloud_where = array_merge($where,['article_category'=>4]);
-        $cloud_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,resp_desc, CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($cloud_where)->get()->toArray();
+        $cloud_articles = Article::active()->limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,resp_desc, CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($cloud_where)->get()->toArray();
         /* 社区新闻/社区风云榜下 */
-        $next_articles = Article::limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[1,5])->whereNotIn('id',$idArr)->get()->toArray();
+        $next_articles = Article::active()->limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($where)->whereIn('article_category',[1,5])->whereNotIn('id',$idArr)->get()->toArray();
         $idArr2 = array_column($next_articles, 'id');
         /* 优秀特约记者*/
         $collect_where = array_merge($where,['article_category'=>10]);
-        $collect_articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,resp_desc, CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($collect_where)->get()->toArray();
+        $collect_articles = Article::active()->limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_title,resp_desc, CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where($collect_where)->get()->toArray();
 
         /* 社区新闻/优秀采编下 */
-        $more_articles = Article::limit(2)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))
+        $more_articles = Article::active()->limit(2)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))
             ->where($where)
             ->whereIn('article_category',[1,5])
             ->whereNotIn('id',array_merge($idArr,$idArr2))
@@ -168,7 +168,7 @@ class ArticleController extends Controller
      */
     public function index_4(Request $request)
     {
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>9])->paginate(10)->toArray();
+        $articles = Article::active()->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>9])->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
@@ -200,7 +200,7 @@ class ArticleController extends Controller
             $result = ['code'=>200,'status'=>0,'message'=>'该openid未注册'];
             return response()->json($result);
         }
-        $articles = Article::orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['openid'=>$request->openid])->paginate(10)->toArray();
+        $articles = Article::active()->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['openid'=>$request->openid])->paginate(10)->toArray();
         unset($articles['from'],$articles['to']);
 
         $list = [
@@ -240,7 +240,7 @@ class ArticleController extends Controller
      */
     public function detail($id)
     {
-        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','article_readnum_v','openid'])->find($id)->toArray();
+        $model = Article::active()->select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','article_readnum_v','openid'])->find($id)->toArray();
         if(!$model)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
@@ -256,7 +256,7 @@ class ArticleController extends Controller
             $model['avatar'] = 'https://'.$_SERVER['HTTP_HOST'].'/images/avatar.gif';
         
         /* 相关新闻 */
-        $articles = Article::limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->get()->toArray();
+        $articles = Article::active()->limit(3)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['article_category'=>8])->get()->toArray();
         $list = [
             'article_info'=>$model, //
             'articles'=>$articles //
@@ -392,7 +392,7 @@ class ArticleController extends Controller
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
         /* 留言列表 */
-        $comments = Article::find($id)->comments()->paginate(10)->toArray();
+        $comments = Article::active()->find($id)->comments()->paginate(10)->toArray();
         unset($comments['from'],$comments['to']);
         foreach($comments['data'] as &$val)
         {
@@ -455,7 +455,7 @@ class ArticleController extends Controller
      */
     public function reporter($id)
     {
-        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','usercode','openid'])->find($id)->toArray();
+        $model = Article::active()->select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','usercode','openid'])->find($id)->toArray();
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
         if(!$model['openid']){
@@ -463,14 +463,14 @@ class ArticleController extends Controller
             Article::where('id', $id)->update(['openid' => $umodel['openid']]);
         }
 
-        $reporter = Article::select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
+        $reporter = Article::active()->select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img,article_content,usercode,region_v as job,region "))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
         /* 我的读者 */
         $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
         if($vote_info['resp_img'])
             $vote_info['resp_img'] = env('ATTACHMENT_URL').current(unserialize($vote_info['resp_img']));
         /* 我的稿件/ */
-        $articles = Article::limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['openid'=>$umodel['openid']])->get()->toArray();
+        $articles = Article::active()->limit(4)->orderBy('id','desc')->select(\DB::raw("id,article_author,article_date_v,article_title,CONCAT('".env('ATTACHMENT_URL')."',resp_img) as resp_img "))->where(['openid'=>$umodel['openid']])->get()->toArray();
 
         $list = [
             'reporter_info'=>$reporter,
@@ -489,11 +489,11 @@ class ArticleController extends Controller
      */
     public function personal($id)
     {
-        $model = Article::select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','article_readnum_v'])->find($id)->toArray();
+        $model = Article::active()->select(['article_title','resp_desc','resp_img','article_content','article_author','article_date_v','article_readnum_v'])->find($id)->toArray();
         if(!$id)
             return response()->json( ['code'=>200,'status'=>0,'message'=>'没有该帖子','data'=>null]);
 
-        $reporter = Article::select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img,usercode,region) as resp_img,article_content,usercode,region_v as job,region,article_readnum_v"))->find($id)->toArray();
+        $reporter = Article::active()->select(\DB::raw("id,article_title as realname,CONCAT('".env('ATTACHMENT_URL')."',resp_img,usercode,region) as resp_img,article_content,usercode,region_v as job,region,article_readnum_v"))->find($id)->toArray();
         $reporter['resp_img'] = env('ATTACHMENT_URL').$model['resp_img'];
         /* 我的读者 */
         $vote_info= Vote::orderBy('id','desc')->select(\DB::raw("id ,title as resp_desc,atlas as resp_img,personnum as votes "))->first()->toArray();
