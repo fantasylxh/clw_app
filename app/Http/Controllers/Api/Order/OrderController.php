@@ -207,8 +207,18 @@ class OrderController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>'orderid不能为空']);
         if( !$request->tocken)
             return response()->json(['code'=>200,'status'=>0,'message'=>'tocken不能为空']);
+        $order = Order::where('id', $request->orderid)->first();
+        if(!$order)
+            return response()->json(['code'=>200,'status'=>0,'message'=>'orderid不存在!']);
+
         /* 更新订单状态 */
+        \DB::beginTransaction(); //开启事务
         $res = Order::where('id', $request->orderid)->update(['status' => 1]);
+        if($res)
+            \DB::commit();  //提交
+        else
+            \DB::rollback();
+
         $res= $res ? 1 : 0;
         return response()->json(['code'=>200,'status'=>$res,'message'=>$res ? '支付成功' : '支付失败','data'=>['credit3'=>10]]);
 
