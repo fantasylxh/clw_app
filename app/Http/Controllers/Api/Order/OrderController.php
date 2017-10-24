@@ -207,8 +207,10 @@ class OrderController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>'orderid不能为空']);
         if( !$request->tocken)
             return response()->json(['code'=>200,'status'=>0,'message'=>'tocken不能为空']);
-
-        return response()->json(['code'=>200,'status'=>1,'message'=>'支付成功','data'=>['credit3'=>120]]);
+        /* 更新订单状态 */
+        $res = Order::where('id', $request->orderid)->update(['status' => 1]);
+        $res= $res ? 1 : 0;
+        return response()->json(['code'=>200,'status'=>$res,'message'=>$res ? '支付成功' : '支付失败','data'=>['credit3'=>10]]);
 
     }
     /**
@@ -237,7 +239,7 @@ class OrderController extends Controller
                 $productsFee += $product->marketprice * $val['total'];
             }
             // 计算价格
-            $shippingFee = 10.0;
+            $shippingFee = 0.0;
             $totalFee = $productsFee + $shippingFee;
             // 创建订单
             $ordersn = self::trade_no();
