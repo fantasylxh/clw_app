@@ -122,7 +122,7 @@ class OrderController extends Controller
                     return response()->json(['code'=>200,'status'=>0,'message'=>'您的积分不足哦!']);
             }
             // 计算价格
-            $shippingFee = 10.0;
+            $shippingFee = 0.0;
             $totalFee = $productsCredit> 0 ? $shippingFee : $productsFee + $shippingFee;
             // 创建订单
             $ordersn = self::trade_no();
