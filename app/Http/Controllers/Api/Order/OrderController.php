@@ -219,15 +219,15 @@ class OrderController extends Controller
                 \DB::commit();  //提交
                 $status =1;
             }
-            else
-                \DB::rollback();
-                $status =0;
-            } catch (\Exception $e){
+            else{
                 \DB::rollback();
                 $status =0;
             }
+        }catch (\Exception $e){
+            \DB::rollback();
+            $status =0;
+        }
         return response()->json(['code'=>200,'status'=>$status,'message'=>$status ? '支付成功' : '支付失败','data'=>['credit3'=>10]]);
-
     }
     /**
      * 提交订单
