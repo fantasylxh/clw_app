@@ -85,5 +85,9 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/', 'ArticleController@index');
     });
 
+    Route::group(['prefix' => 'hotel', 'namespace' => 'Hotel'], function () {
+        Route::get('/showinfo', 'IndexController@index');
+    });
+
 });
 
