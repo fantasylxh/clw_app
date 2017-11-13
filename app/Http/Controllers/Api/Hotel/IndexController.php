@@ -17,9 +17,10 @@ class IndexController extends Controller
      * @since 1.0
      * @return array
      */
-    public function index(Request $request)
+    public function index($id)
     {
-
+        if(!$id)
+            return response()->json( ['code'=>200,'status'=>0,'message'=>'id参数为空','data'=>null]);
         /* index */
         $result = [
             'roomtype'=>1,
