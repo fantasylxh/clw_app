@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Api\Hotel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Models\Article;
-use App\Models\Product;
-use App\Models\Activity;
-use App\Models\ActivityRecord;
+use App\Http\Requests\Interfaces\MemberCheck;
 class IndexController extends Controller
 {
+    use MemberCheck;
     /**
      * app首页
      * @author      lxhui<772932587@qq.com>
@@ -36,6 +34,37 @@ class IndexController extends Controller
             'price'=>2129,
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'景客房介绍','data'=>$result];
+        return $result;
+    }
+
+    /**
+     * app首页
+     * @author      lxhui<772932587@qq.com>
+     * @since 1.0
+     * @return array
+     */
+    public function order(Request $request,$id=0)
+    {
+        if( !$request->id )
+            return response()->json(['code'=>200,'status'=>0,'message'=>'id 不能空']);
+
+        $method=$request->method();
+        if($request->isMethod('post')){
+            if( !$request->id || !$request->phone)
+                return response()->json(['code'=>200,'status'=>0,'message'=>'id phone 不能空']);
+            if( !$this->checkMember(['openid'=>$request->openid]))
+                return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+            return response()->json(['code'=>200,'status'=>1,'message'=>'订单提交成功']);
+        }
+        else{
+            $result = ['title'=>'豪华套房','price'=>2310,            'intime'=>'11-15',
+                'outtime'=>'11-16',
+                'totalin'=>'共2晚',];
+
+        }
+
+        $result = ['code'=>200,'status'=>1,'message'=>'订单确认','data'=>$result];
         return $result;
     }
 
