@@ -77,8 +77,16 @@ class HomeController extends Controller
     {
 
         /* index */
+        $banner = [
+        ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+        ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+        ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+    ];
         $result = [
-            'title'=>'成园三期戏水乐园','topimgurl'=>'https://users.chengliwang.com/images/1.jpg','content'=>'富文本介绍'
+            'topimgurl'=>'https://users.chengliwang.com/images/1.jpg',
+            'title'=>'成园三期戏水乐园',
+            'banner'=>$banner,
+            'content'=>'富文本介绍'
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'景点介绍','data'=>$result];
         return $result;
