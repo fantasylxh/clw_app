@@ -73,7 +73,7 @@ class HomeController extends Controller
     }
 
 
-    public function showInfo()
+    public function showInfo($id)
     {
 
         /* index */
