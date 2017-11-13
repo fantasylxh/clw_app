@@ -58,7 +58,9 @@ class IndexController extends Controller
             return response()->json(['code'=>200,'status'=>1,'message'=>'订单提交成功']);
         }
         else{
-            $result = ['title'=>'豪华套房','price'=>2310,            'intime'=>'11-15',
+            $result = ['title'=>'豪华套房','price'=>2310,
+                'roomtype'=>'嘻哈双人房',
+                'intime'=>'11-15',
                 'outtime'=>'11-16',
                 'totalin'=>'共2晚',];
 
