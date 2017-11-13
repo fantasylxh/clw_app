@@ -5,7 +5,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/', 'IndexController@index');
         Route::get('/default', 'HomeController@index');
         Route::get('/default/hotel', 'HomeController@hotel');
-        Route::get('/default/showinfo', 'HomeController@showInfo');
+        Route::get('/default/showinfo/{id}', 'HomeController@showInfo');
         Route::get('/about', 'IndexController@about');
         Route::get('/alert', 'IndexController@alert');
         Route::get('/qrcode/{id}', 'IndexController@qrcode');
@@ -86,7 +86,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     });
 
     Route::group(['prefix' => 'hotel', 'namespace' => 'Hotel'], function () {
-        Route::get('/showinfo', 'IndexController@index');
+        Route::get('/showinfo/{id}', 'IndexController@index');
     });
 
 });
