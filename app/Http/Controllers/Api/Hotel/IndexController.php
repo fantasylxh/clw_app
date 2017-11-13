@@ -24,6 +24,7 @@ class IndexController extends Controller
         /* index */
         $result = [
             'roomtype'=>1,
+            'roomname'=>'豪华总统套房',
             'topimgurl'=>'https://users.chengliwang.com/images/1.jpg',
             'title'=>'成园三期戏水乐园',
             'tiptext'=>'订单预定成功后，我们将在24小时内确认订单，所在非工作时间顺延至第二天，请耐心等待，客服电话：400-87656453',
