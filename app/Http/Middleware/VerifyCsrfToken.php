@@ -38,5 +38,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/order/',
         '/hotel/*',
         '/food/*',
+        '/default/*',
     ];
 }

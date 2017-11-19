@@ -9,8 +9,10 @@ use App\Models\Article;
 use App\Models\Product;
 use App\Models\Activity;
 use App\Models\ActivityRecord;
+use App\Http\Requests\Interfaces\MemberCheck;
 class HomeController extends Controller
 {
+    use MemberCheck;
     /**
      * app首页
      * @author      lxhui<772932587@qq.com>
@@ -132,6 +134,33 @@ class HomeController extends Controller
             'nightticket'=>$nightticket,
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'门票预订界面接口','data'=>$result];
+        return $result;
+    }
+
+    public function orderInfo($id)
+    {
+
+        /* index */
+
+        $result = [
+            'title'=>'成人全员会员票',
+            'price'=>138,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'订单确认页面接口','data'=>$result];
+        return $result;
+    }
+
+    public function order(Request $request)
+    {
+
+        if( !$this->checkMember(['openid'=>$request->openid]) || !$request->id)
+            return response()->json(['code'=>200,'status'=>0,'message'=>'id not null 该openid未注册']);
+
+        $result = [
+            'order_id'=>2,
+            'order_no'=>2019284388495,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'订单确认成功','data'=>$result];
         return $result;
     }
 
