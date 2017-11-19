@@ -81,4 +81,20 @@ class IndexController extends Controller
         return $result;
     }
 
+    public function myorder(Request $request)
+    {
+
+        if( !$this->checkMember(['openid'=>$request->openid]))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+        $result = [
+            ['id'=>1,'name'=>'香辣虾','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132,'ordernum'=>1],
+            ['id'=>2,'name'=>'香辣虾','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>32,'ordernum'=>2],
+            ['id'=>3,'name'=>'香辣虾','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>32,'ordernum'=>4],
+            ['id'=>4,'name'=>'香辣虾','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132,'ordernum'=>1],
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'订单确认页面','data'=>$result];
+        return $result;
+    }
+
 }

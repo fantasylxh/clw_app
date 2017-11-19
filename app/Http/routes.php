@@ -98,6 +98,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
         Route::get('/{id}', 'IndexController@index');//类型
         Route::get('/detail/{id}', 'IndexController@detail');
         Route::post('/join', 'IndexController@join');
+        Route::post('/myorder', 'IndexController@myorder');
         Route::post('/order', 'IndexController@order');
         Route::get('/type/{id}', 'IndexController@type');//类型
 
