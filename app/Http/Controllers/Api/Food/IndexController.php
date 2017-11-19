@@ -9,9 +9,10 @@ use App\Models\Article;
 use App\Models\Product;
 use App\Models\Activity;
 use App\Models\ActivityRecord;
+use App\Http\Requests\Interfaces\MemberCheck;
 class IndexController extends Controller
 {
-
+    use MemberCheck;
     public function index()
     {
 
@@ -67,6 +68,16 @@ class IndexController extends Controller
             'content'=>'富文本介绍'
         ];
         $result = ['code'=>200,'status'=>1,'message'=>'美食介绍','data'=>$result];
+        return $result;
+    }
+
+    public function join(Request $request)
+    {
+
+        if( !$this->checkMember(['openid'=>$request->openid]))
+            return response()->json(['code'=>200,'status'=>0,'message'=>'该openid未注册']);
+
+        $result = ['code'=>200,'status'=>1,'message'=>'加入成功'];
         return $result;
     }
 
