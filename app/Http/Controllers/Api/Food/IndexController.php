@@ -97,4 +97,15 @@ class IndexController extends Controller
         return $result;
     }
 
+
+    public function order(Request $request)
+    {
+
+        if( !$this->checkMember(['openid'=>$request->openid]) || !$request->realname)
+            return response()->json(['code'=>200,'status'=>0,'message'=>'realname 该openid未注册']);
+
+
+        $result = ['code'=>200,'status'=>1,'message'=>'订单确认成功','data'=>['message'=>'恭喜您，订单成功，为您发送预约短信']];
+        return $result;
+    }
 }
