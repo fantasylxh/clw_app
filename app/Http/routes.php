@@ -4,6 +4,8 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Index'], function () {
         Route::get('/', 'IndexController@index');
         Route::get('/default', 'HomeController@index');
+        Route::get('/default/detail', 'HomeController@detail');
+
         Route::get('/default/hotel', 'HomeController@hotel');
         Route::get('/default/showinfo/{id}', 'HomeController@showInfo');
         Route::get('/about', 'IndexController@about');

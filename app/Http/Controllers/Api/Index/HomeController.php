@@ -92,4 +92,48 @@ class HomeController extends Controller
         return $result;
     }
 
+    //类型
+    public function detail()
+    {
+
+        /* index */
+        $topbanner = [
+            [ 'id'=>11,'title'=>'嘻哈乐园一期','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>245],
+            [ 'id'=>22,'title'=>'嘻哈乐园一期','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>278],
+            [ 'id'=>13,'title'=>'嘻哈乐园一期','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>145],
+        ];
+        $more = [
+            ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+            [ 'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+            [ 'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+        ];
+        $weekdaya = [
+            [ 'datetime'=>'2017-12-23','daytext'=>'周五','value'=>'今天'],
+            [ 'datetime'=>'2017-12-24','daytext'=>'周六','value'=>'明天'],
+            [ 'datetime'=>'2017-12-25','daytext'=>'周日','value'=>'12月24号'],
+            [ 'datetime'=>'2017-12-26','daytext'=>'周一','value'=>'12月25号'],
+        ];
+        $dayticket = [
+            [ 'id'=>111,'title'=>'成员会员全日票','price'=>245],
+            [ 'id'=>222,'title'=>'成员会员全日票','price'=>278],
+            [ 'id'=>123,'title'=>'成员会员全日票','price'=>145],
+        ];
+        $nightticket = [
+            [ 'id'=>411,'title'=>'成员会员全晚票','price'=>245],
+            [ 'id'=>422,'title'=>'成员会员全晚票','price'=>278],
+            [ 'id'=>423,'title'=>'成员会员全晚票','price'=>145],
+        ];
+        $result = [
+            'title'=>'大连成员温泉',
+            'content'=>'详细介绍富文本',
+            'topbanner'=>$topbanner,
+            'more'=>$more,
+            'dayticket'=>$dayticket,
+            'nightticket'=>$nightticket,
+        ];
+        $result = ['code'=>200,'status'=>1,'message'=>'门票预订界面接口','data'=>$result];
+        return $result;
+    }
+
+
 }
