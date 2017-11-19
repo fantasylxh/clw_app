@@ -37,15 +37,15 @@ class IndexController extends Controller
                 "next_page_url"=>4,
                 "prev_page_url"=>4,
                 "data"=>[
-                    ['id'=>1,'title'=>'豪华双人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>2,'title'=>'豪华双人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>3,'title'=>'豪华双人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>4,'title'=>'豪华双人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>5,'title'=>'豪华双人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>6,'title'=>'豪华12人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>7,'title'=>'豪华7人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>8,'title'=>'豪华7人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-                    ['id'=>9,'title'=>'豪华双人间','imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+                    ['id'=>1,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>2,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>3,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>4,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>5,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>6,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>7,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>8,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
+                    ['id'=>9,'name'=>'香辣虾','desc'=>'香辣虾剪短秒速','imgurl'=>'https://users.chengliwang.com/images/1.jpg','price'=>132],
 
                 ]
             ],
@@ -55,22 +55,18 @@ class IndexController extends Controller
     }
 
 
-    public function showInfo($id)
+    public function detail($id)
     {
 
         /* index */
-        $banner = [
-        ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-        ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-        ['imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
-    ];
+
         $result = [
-            'topimgurl'=>'https://users.chengliwang.com/images/1.jpg',
-            'title'=>'成园三期戏水乐园',
-            'banner'=>$banner,
+            'imgurl'=>'https://users.chengliwang.com/images/1.jpg',
+            'name'=>'招牌红烧羊肉',
+            'price'=>238,
             'content'=>'富文本介绍'
         ];
-        $result = ['code'=>200,'status'=>1,'message'=>'景点介绍','data'=>$result];
+        $result = ['code'=>200,'status'=>1,'message'=>'美食介绍','data'=>$result];
         return $result;
     }
 
