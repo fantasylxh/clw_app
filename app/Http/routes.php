@@ -86,9 +86,19 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     });
 
     Route::group(['prefix' => 'hotel', 'namespace' => 'Hotel'], function () {
-        Route::get('/showinfo/{id}', 'IndexController@index');
+        Route::get('/showinfo/{id}', 'IndexController@index');//详细
         Route::get('/order/{id}', 'IndexController@order');
         Route::post('/order', 'IndexController@order');
+        Route::get('/type/{id}', 'IndexController@type');//类型
+
+    });
+
+    Route::group(['prefix' => 'food', 'namespace' => 'Food'], function () {
+        Route::get('/', 'IndexController@index');//详细
+        Route::get('/order/{id}', 'IndexController@order');
+        Route::post('/order', 'IndexController@order');
+        Route::get('/type/{id}', 'IndexController@type');//类型
+
     });
 
 });
