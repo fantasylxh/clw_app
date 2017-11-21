@@ -86,7 +86,7 @@ class IndexController extends Controller
      */
     public function order(Request $request,$id=0)
     {
-        if( !$request->id ||  !$request->phone  )
+        if( !$request->id  )
             return response()->json(['code'=>200,'status'=>0,'message'=>'id phone 不能空']);
 
         $method=$request->method();
