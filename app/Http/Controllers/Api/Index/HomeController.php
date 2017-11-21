@@ -22,6 +22,10 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $notice =['id'=>11,'title'=>'成园有约套房大酬宾活动开幕啦'];
+        $top = [
+            ['id'=>11,'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+            ['id'=>22,'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
+        ];
         $hot = [
             ['id'=>1,'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
             ['id'=>2,'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
@@ -35,6 +39,7 @@ class HomeController extends Controller
         ];
 
         $list = [
+            'top'=>$top,
             'notice'=>$notice,
             'hot'=>$hot,
             'face'=>$face,
