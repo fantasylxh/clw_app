@@ -114,7 +114,7 @@ class HomeController extends Controller
             [ 'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
             [ 'imgurl'=>'https://users.chengliwang.com/images/1.jpg'],
         ];
-        $weekdaya = [
+        $weekday = [
             [ 'datetime'=>'2017-12-23','daytext'=>'周五','value'=>'今天'],
             [ 'datetime'=>'2017-12-24','daytext'=>'周六','value'=>'明天'],
             [ 'datetime'=>'2017-12-25','daytext'=>'周日','value'=>'12月24号'],
@@ -135,6 +135,7 @@ class HomeController extends Controller
             'content'=>'详细介绍富文本',
             'topbanner'=>$topbanner,
             'more'=>$more,
+            'weekday'=>$weekday,
             'dayticket'=>$dayticket,
             'nightticket'=>$nightticket,
         ];
