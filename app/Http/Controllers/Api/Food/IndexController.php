@@ -107,7 +107,7 @@ class IndexController extends Controller
             return response()->json(['code'=>200,'status'=>0,'message'=>'realname 该openid未注册']);
 
 
-        $result = ['code'=>200,'status'=>1,'message'=>'订单确认成功','data'=>['message'=>'恭喜您，订单成功，为您发送预约短信']];
+        $result = ['code'=>200,'status'=>1,'message'=>'订单确认成功','data'=>['message'=>'恭喜您订单已生成，已为您发送预约短信，成园温泉山庄祝您生活愉快']];
         return $result;
     }
 }
