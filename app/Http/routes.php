@@ -4,7 +4,7 @@ Route::group(['middleware' => [], 'namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Index'], function () {
         Route::get('/', 'IndexController@index');
         Route::get('/default', 'HomeController@index');
-        Route::get('/default/detail', 'HomeController@detail');
+        Route::any('/default/detail', 'HomeController@detail');
         Route::get('/default/orderinfo/{id}', 'HomeController@orderInfo');
         Route::post('/default/order', 'HomeController@order');
 
